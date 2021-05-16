@@ -1,0 +1,61 @@
+{
+	"apiVersion": 2,
+	"name": "sixa/add-to-cart",
+	"title": "Add to Cart",
+	"category": "widgets",
+	"icon": "store",
+	"description": "Add-to-cart block for WordPress editor.",
+	"keywords": [
+		"sixa",
+		"add-to-cart",
+		"woocommerce",
+		"ecommerce"
+	],
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {
+		"postId": {
+			"type": "number"
+		},
+		"text": {
+			"type": "string"
+		},
+		"placeholder": {
+			"type": "string"
+		},
+		"quantity": {
+			"type": "number",
+			"default": 1
+		},
+		"displayPrice": {
+			"type": "boolean",
+			"default": false
+		},
+		"textColor": {
+			"type": "string"
+		},
+		"customTextColor": {
+			"type": "string"
+		},
+		"backgroundColor": {
+			"type": "string"
+		},
+		"customBackgroundColor": {
+			"type": "string"
+		},
+		"gradient": {
+			"type": "string"
+		},
+		"customGradient": {
+			"type": "string"
+		},
+		"textAlign": {
+			"type": "string"
+		}
+	},
+	"textdomain": "sixa",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}
