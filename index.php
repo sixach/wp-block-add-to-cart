@@ -23,6 +23,11 @@ namespace SixaAddToCartBlock;
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
  */
 function register_block() {
+	// Bail early in case WooCommerce is not being activated.
+	if ( ! is_woocommerce() ) {
+		return;
+	}
+
 	register_block_type_from_metadata(
 		__DIR__,
 		array(
@@ -108,4 +113,27 @@ function get_attributes( $product_id = '', $custom_classes = array() ) {
 	}
 
 	return $attributes;
+}
+
+/**
+ * Query WooCommerce activation.
+ *
+ * @return  bool
+ */
+function is_woocommerce() {
+	// This statement prevents from producing fatal errors,
+	// in case the WooCommerce plugin is not activated on the site.
+	$woocommerce_plugin = apply_filters( 'sixa_add_to_cart_block_woocommerce_path', 'woocommerce/woocommerce.php' );
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$subsite_active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	$network_active_plugins = apply_filters( 'active_plugins', get_site_option( 'active_sitewide_plugins' ) );
+
+	// Bail early in case the plugin is not activated on the website.
+	// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+	if ( ( empty( $subsite_active_plugins ) || ! in_array( $woocommerce_plugin, $subsite_active_plugins ) ) && ( empty( $network_active_plugins ) || ! array_key_exists( $woocommerce_plugin, $network_active_plugins ) ) ) {
+		return false;
+	}
+
+	return true;
 }
