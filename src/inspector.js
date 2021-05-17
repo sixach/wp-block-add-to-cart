@@ -13,12 +13,19 @@ import { get, eq } from 'lodash';
 import { __ } from '@wordpress/i18n';
 
 /**
+ * WordPress specific abstraction layer atop React.
+ *
+ * @see https://github.com/WordPress/gutenberg/tree/HEAD/packages/element/README.md
+ */
+import { useEffect } from '@wordpress/element';
+
+/**
  * This packages includes a library of generic WordPress components to be used for
  * creating common UI elements shared between screens and features of the WordPress dashboard.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/
  */
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -41,11 +48,33 @@ import { InspectorControls, ContrastChecker, __experimentalPanelColorGradientSet
  * @param   {Function}  props.setBackgroundColor 	    Update background-color value.
  * @param   {Function}  props.useGradient 	            Update, get background gradient color.
  * @param   {number}  	props.stockQuantity 	        Available stock quantity.
+ * @param   {boolean}  	props.isPrice 	        		Whether the price is available to be displayed.
+ * @param   {boolean}  	props.isStock 	        		Whether the stock status is available to be displayed.
  * @return 	{WPElement} 						        Inspector element to render.
  */
-export default function Inspector( { attributes, setAttributes, textColor, setTextColor, backgroundColor, setBackgroundColor, useGradient, stockQuantity } ) {
-	const { quantity } = attributes;
+export default function Inspector( {
+	attributes,
+	setAttributes,
+	textColor,
+	setTextColor,
+	backgroundColor,
+	setBackgroundColor,
+	useGradient,
+	stockQuantity,
+	isPrice,
+	isStock,
+} ) {
+	const { quantity, displayPrice, displayStock } = attributes;
 	const { setGradient, gradientValue } = useGradient;
+
+	useEffect( () => {
+		if ( ! isPrice ) {
+			setAttributes( { displayPrice: isPrice } );
+		}
+		if ( ! isStock ) {
+			setAttributes( { displayStock: isStock } );
+		}
+	}, [ isPrice, isStock ] );
 
 	return (
 		<InspectorControls>
@@ -60,9 +89,21 @@ export default function Inspector( { attributes, setAttributes, textColor, setTe
 					disabled={ eq( 1, stockQuantity ) ?? true }
 					onChange={ ( value ) => setAttributes( { quantity: value } ) }
 				/>
+				<ToggleControl
+					label={ __( 'Display price?', 'sixa' ) }
+					disabled={ ! isPrice }
+					checked={ displayPrice }
+					onChange={ () => setAttributes( { displayPrice: ! displayPrice } ) }
+				/>
+				<ToggleControl
+					label={ __( 'Display stock?', 'sixa' ) }
+					disabled={ ! isStock }
+					checked={ displayStock }
+					onChange={ () => setAttributes( { displayStock: ! displayStock } ) }
+				/>
 			</PanelBody>
 			<PanelColorGradientSettings
-				initialOpen
+				initialOpen={ false }
 				title={ __( 'Color Settings', 'sixa' ) }
 				settings={ [
 					{
