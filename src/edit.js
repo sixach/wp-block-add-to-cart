@@ -221,7 +221,7 @@ function Edit( props ) {
 								aria-label={ __( 'Button text', 'sixa' ) }
 								placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
 								onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
-								className={ classnames( 'button', 'wp-block-button__link', {
+								className={ classnames( 'wp-block-button__link', {
 									'has-text-color': textColorClass,
 									'has-background': backgroundColorClass,
 									'has-background-gradient': gradientValue,
