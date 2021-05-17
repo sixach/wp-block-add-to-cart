@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { set } from 'lodash';
+import { get, set } from 'lodash';
 
 /**
  * Utility for conditionally joining CSS class names together.
@@ -19,6 +19,11 @@ import classnames from 'classnames';
 import { useBlockProps, RichText, getColorClassName, __experimentalGetGradientClass } from '@wordpress/block-editor';
 
 /**
+ * Utility helper methods/variables.
+ */
+ import utils from './utils';
+
+/**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
  * editor into `post_content`.
@@ -30,10 +35,16 @@ import { useBlockProps, RichText, getColorClassName, __experimentalGetGradientCl
  */
 export default function save( { attributes } ) {
 	const styles = {};
-	const { postId, quantity, text, textAlign, textColor, customTextColor, backgroundColor, customBackgroundColor, gradient, customGradient } = attributes;
+	const { postId, quantity, text, displayPrice, displayStock, textAlign, textColor, customTextColor, backgroundColor, customBackgroundColor, gradient, customGradient } = attributes;
 	const textColorClass = getColorClassName( 'color', textColor );
 	const backgroundColorClass = getColorClassName( 'background-color', backgroundColor );
 	const gradientClass = __experimentalGetGradientClass( gradient );
+	const blockProps = useBlockProps.save( {
+		className: classnames( 'product', 'add_to_cart_inline', {
+			[ `has-text-align-${ textAlign }` ]: postId && textAlign,
+		} ),
+	} );
+	const className = utils.blockClassName( get( blockProps, 'className' ) );
 
 	if ( ! textColorClass ) {
 		set( styles, 'color', customTextColor );
@@ -48,18 +59,13 @@ export default function save( { attributes } ) {
 	}
 
 	return (
-		<div
-			{ ...useBlockProps.save( {
-				className: classnames( 'product', 'add_to_cart_inline', {
-					[ `has-text-align-${ textAlign }` ]: postId && textAlign,
-				} ),
-			} ) }
-		>
+		<div { ...blockProps }>
+			{ displayPrice && <div className={ `${ className }__price` }></div> }
 			<RichText.Content
 				tagName="a"
 				value={ text }
 				data-quantity={ quantity }
-				className={ classnames( 'button', 'wp-block-button__link', {
+				className={ classnames( 'button', 'wp-block-button__link', `${ className }__button`, {
 					'has-text-color': textColorClass,
 					'has-background': backgroundColorClass,
 					'has-background-gradient': gradient || customGradient,
@@ -69,6 +75,7 @@ export default function save( { attributes } ) {
 				} ) }
 				style={ { ...styles } }
 			/>
+			{ displayStock && <div className={ `${ className }__stock` }></div> }
 		</div>
 	);
 }

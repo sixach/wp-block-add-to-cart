@@ -42,6 +42,23 @@ function register_block() {
 add_action( 'init', __NAMESPACE__ . '\register_block' );
 
 /**
+ * Add extra parameters to the WooCommerce product (endpoint) response.
+ *
+ * @since   1.0.0
+ * @param   WP_REST_Response $response        The response object.
+ * @param   WP_Post|WC_Data  $post            Post object or WC object.
+ * @return  WP_REST_Response
+ */
+function prepare_product( $response, $post ) {
+	$product_id                   = is_callable( array( $post, 'get_id' ) ) ? $post->get_id() : ( ! empty( $post->ID ) ? $post->ID : null );
+	$product                      = wc_get_product( $product_id );
+	$response->data['stock_html'] = wc_get_stock_html( $product );
+
+	return $response;
+}
+add_filter( 'woocommerce_rest_prepare_product_object', __NAMESPACE__ . '\prepare_product', 10, 2 );
+
+/**
  * Sets generated product attributes with name qualifiedName to the given value. If the attribute does not exist, it will be created.
  *
  * @param   array $attributes        Product id.
@@ -55,22 +72,38 @@ function add_attributes( $attributes, $content ) {
 		return $content;
 	}
 
-	$dom = new \DOMDocument();
+	$class = 'wp-block-sixa-add-to-cart';
+	$dom   = new \DOMDocument();
 	// Loads an XML document from the given form content (string).
-	$dom->loadXML( $content );
-	$xpath          = new \DomXPath( $dom );
-	$the_node       = $xpath->query( '//a' );
-	$custom_classes = array( 'class' => $the_node->item( 0 )->getAttribute( 'class' ) );
-	$attributes     = get_attributes( $product_id, $custom_classes );
+	$dom->loadXML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+	$xpath           = new \DomXPath( $dom );
+	$button_node     = $xpath->query( '//a' );
+	$product         = wc_get_product( $product_id );
+	$display_price   = $attributes['displayPrice'] ?? false;
+	$display_stock   = $attributes['displayStock'] ?? false;
+	$custom_classes  = array( 'class' => $button_node->item( 0 )->getAttribute( 'class' ) );
+	$html_attributes = get_attributes( $product, $custom_classes );
 
-	if ( is_array( $attributes ) && ! empty( $attributes ) ) {
-		foreach ( $attributes as $key => $value ) {
-			$the_node->item( 0 )->setAttribute( $key, $value );
+	// Get the product price in html format.
+	if ( $display_price ) {
+		$price_node                       = $xpath->query( "//div[contains(@class, '" . $class . '__price' . "')]" );
+		$price_node->item( 0 )->nodeValue = $product->get_price_html();
+	}
+
+	if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
+		foreach ( $html_attributes as $key => $value ) {
+			$button_node->item( 0 )->setAttribute( $key, $value );
 		}
 	}
 
+	// Get HTML to show product stock.
+	if ( $display_stock ) {
+		$stock_node                       = $xpath->query( "//div[contains(@class, '" . $class . '__stock' . "')]" );
+		$stock_node->item( 0 )->nodeValue = wc_get_stock_html( $product );
+	}
+
 	// Dumps the internal document into a string using HTML formatting.
-	$striped_content = trim( $dom->saveHTML() );
+	$striped_content = html_entity_decode( trim( $dom->saveHTML() ), ENT_COMPAT, 'UTF-8' );
 
 	return $striped_content;
 }
@@ -78,13 +111,12 @@ function add_attributes( $attributes, $content ) {
 /**
  * Generates inline add-to-cart link HTML attributes.
  *
- * @param   int   $product_id            Optional. Product id.
- * @param   array $custom_classes        Optional. A list of CSS class names associated with the anchor tag.
+ * @param   object $product               Product object.
+ * @param   array  $custom_classes        Optional. A list of CSS class names associated with the anchor tag.
  * @return  array
  */
-function get_attributes( $product_id = '', $custom_classes = array() ) {
+function get_attributes( $product, $custom_classes = array() ) {
 	$attributes = array();
-	$product    = wc_get_product( $product_id );
 
 	if ( is_object( $product ) ) {
 		$attributes = apply_filters(

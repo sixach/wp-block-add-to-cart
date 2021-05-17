@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { get, set, map, isArray, parseInt, toString, filter, find, isNumber, isNull, noop } from 'lodash';
+import { get, set, map, isArray, parseInt, toString, filter, find, isEmpty } from 'lodash';
 
 /**
  * Utility helper methods specific for Sixa projects.
@@ -49,7 +49,7 @@ import { escapeHTML } from '@wordpress/escape-html';
  *
  * @see https://github.com/WordPress/gutenberg/tree/HEAD/packages/element/README.md
  */
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect, useRef, RawHTML } from '@wordpress/element';
 
 /**
  * Data module to manage application state for both plugins and WordPress itself.
@@ -82,6 +82,11 @@ import { applyFilters } from '@wordpress/hooks';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps, RichText, withColors, __experimentalUseGradient } from '@wordpress/block-editor';
+
+/**
+ * Utility helper methods/variables.
+ */
+ import utils from './utils';
 
 /**
  * This component allows users to select a product from a single-option menu.
@@ -121,8 +126,10 @@ function Edit( props ) {
 	const [ wpQuery, setWpQuery ] = useState( '' );
 	const [ productOptions, setProductOptions ] = useState( [] );
 	const [ stockQuantity, setStockQuantity ] = useState( 1 );
+	const [ priceHtml, setPriceHtml ] = useState( '' );
+	const [ stockHtml, setStockHtml ] = useState( '' );
 	const { isSelected, attributes, setAttributes, textColor, backgroundColor, useGradient } = props;
-	const { postId, text, textAlign, placeholder } = attributes;
+	const { postId, text, textAlign, placeholder, displayPrice, displayStock } = attributes;
 	const { gradientClass, gradientValue } = useGradient;
 	const textColorClass = get( textColor, 'class' );
 	const backgroundColorClass = get( backgroundColor, 'class' );
@@ -132,6 +139,12 @@ function Edit( props ) {
 	const handleOnChangeProduct = ( value ) => setAttributes( { postId: parseInt( value ) } );
 	const { createErrorNotice } = useDispatch( 'core/notices' );
 	const toggleEditing = () => setIsEditing( ! isEditing );
+	const blockProps = useBlockProps( {
+		className: classnames( 'product', 'add_to_cart_inline', {
+			[ `has-text-align-${ textAlign }` ]: postId && textAlign,
+		} ),
+	} );
+	const className = utils.blockClassName( get( blockProps, 'className' ) );
 
 	useEffect( () => {
 		set( isStillMounted, 'current', true );
@@ -164,14 +177,11 @@ function Edit( props ) {
 	}, [ wpQuery ] );
 
 	useEffect( () => {
-		const getStockQuantity = get( find( wpQuery, [ 'id', parseInt( postId ) ] ), 'stock_quantity' );
+		const findProduct = find( wpQuery, [ 'id', parseInt( postId ) ] );
 
-		if ( isNumber( getStockQuantity ) ) {
-			setStockQuantity( getStockQuantity );
-		}
-		if ( isNull( getStockQuantity ) ) {
-			setStockQuantity( noop() );
-		}
+		setPriceHtml( get( findProduct, 'price_html' ) );
+		setStockHtml( get( findProduct, 'stock_html' ) );
+		setStockQuantity( get( findProduct, 'stock_quantity' ) );
 	}, [ postId, wpQuery ] );
 
 	if ( ! textColorClass ) {
@@ -188,13 +198,7 @@ function Edit( props ) {
 
 	return (
 		<>
-			<div
-				{ ...useBlockProps( {
-					className: classnames( 'product', 'add_to_cart_inline', {
-						[ `has-text-align-${ textAlign }` ]: postId && textAlign,
-					} ),
-				} ) }
-			>
+			<div { ...blockProps }>
 				{ ! isArray( wpQuery ) || ! get( isStillMounted, 'current' ) ? (
 					<LoadingSpinner />
 				) : (
@@ -209,35 +213,39 @@ function Edit( props ) {
 								toggleEditing={ toggleEditing }
 							/>
 						) : (
-							<RichText
-								preserveWhiteSpace
-								keepPlaceholderOnFocus
-								withoutInteractiveFormatting
-								identifier="text"
-								value={ text }
-								multiline={ false }
-								allowedFormats={ [] }
-								__unstableOnSplitAtEnd={ [] }
-								aria-label={ __( 'Button text', 'sixa' ) }
-								placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
-								onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
-								className={ classnames( 'wp-block-button__link', {
-									'has-text-color': textColorClass,
-									'has-background': backgroundColorClass,
-									'has-background-gradient': gradientValue,
-									[ textColorClass ]: textColorClass,
-									[ backgroundColorClass ]: backgroundColorClass,
-									[ gradientClass ]: gradientClass,
-								} ) }
-								style={ { ...styles } }
-							/>
+							<>
+								{ displayPrice && <RawHTML className={ `${ className }__price` }>{ priceHtml }</RawHTML> }
+								<RichText
+									preserveWhiteSpace
+									keepPlaceholderOnFocus
+									withoutInteractiveFormatting
+									identifier="text"
+									value={ text }
+									multiline={ false }
+									allowedFormats={ [] }
+									__unstableOnSplitAtEnd={ [] }
+									aria-label={ __( 'Button text', 'sixa' ) }
+									placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
+									onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
+									className={ classnames( 'wp-block-button__link', `${ className }__button`, {
+										'has-text-color': textColorClass,
+										'has-background': backgroundColorClass,
+										'has-background-gradient': gradientValue,
+										[ textColorClass ]: textColorClass,
+										[ backgroundColorClass ]: backgroundColorClass,
+										[ gradientClass ]: gradientClass,
+									} ) }
+									style={ { ...styles } }
+								/>
+								{ displayStock && <RawHTML className={ `${ className }__stock` }>{ stockHtml }</RawHTML> }
+							</>
 						) }
 					</>
 				) }
 				{ isSelected && ! isEditing && postId && (
 					<>
 						<Controls { ...props } toggleEditing={ toggleEditing } />
-						<Inspector { ...props } stockQuantity={ stockQuantity } />
+						<Inspector { ...props } stockQuantity={ stockQuantity } isPrice={ ! isEmpty( priceHtml ) } isStock={ ! isEmpty( stockHtml ) } />
 					</>
 				) }
 			</div>
