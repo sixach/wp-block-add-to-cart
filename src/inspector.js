@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { get, eq } from 'lodash';
+import { get, lte, isEmpty, isNumber, noop } from 'lodash';
 
 /**
  * Retrieves the translation of text.
@@ -39,33 +39,16 @@ import { InspectorControls, ContrastChecker, __experimentalPanelColorGradientSet
  * Inspector Controls appear in the post settings sidebar when a block is being edited.
  *
  * @see     https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inspector-controls/README.md
- * @param   {Object}    props 					        Block meta-data properties.
- * @param   {Object}    props.attributes 		    	Block attributes.
- * @param   {Function}  props.setAttributes 	    	Update block attributes.
- * @param   {Object}    props.textColor 	            Color hex code and CSS class name.
- * @param   {Function}  props.setTextColor 	            Update color value.
- * @param   {Object}    props.backgroundColor 	        Background-color hex code and CSS class name.
- * @param   {Function}  props.setBackgroundColor 	    Update background-color value.
- * @param   {Function}  props.useGradient 	            Update, get background gradient color.
- * @param   {number}  	props.stockQuantity 	        Available stock quantity.
- * @param   {boolean}  	props.isPrice 	        		Whether the price is available to be displayed.
- * @param   {boolean}  	props.isStock 	        		Whether the stock status is available to be displayed.
- * @return 	{WPElement} 						        Inspector element to render.
+ * @param 	{Object}    props           Block meta-data properties.
+ * @return 	{WPElement}                 Element to render.
  */
-export default function Inspector( {
-	attributes,
-	setAttributes,
-	textColor,
-	setTextColor,
-	backgroundColor,
-	setBackgroundColor,
-	useGradient,
-	stockQuantity,
-	isPrice,
-	isStock,
-} ) {
+export default function Inspector( props ) {
+	const { attributes, setAttributes, textColor, setTextColor, backgroundColor, setBackgroundColor, useGradient, stockQty, priceHtml, stockHtml } = props;
 	const { quantity, displayPrice, displayStock } = attributes;
 	const { setGradient, gradientValue } = useGradient;
+	const isPrice = ! isEmpty( priceHtml );
+	const isStock = ! isEmpty( stockHtml );
+	const isStockQty = isNumber( stockQty ) && lte( stockQty, 1 );
 
 	useEffect( () => {
 		if ( ! isPrice ) {
@@ -84,9 +67,9 @@ export default function Inspector( {
 					readonly
 					label={ __( 'Quantity', 'sixa' ) }
 					min={ 1 }
-					max={ stockQuantity }
+					max={ stockQty || noop() }
 					value={ quantity }
-					disabled={ eq( 1, stockQuantity ) ?? true }
+					disabled={ isStockQty }
 					onChange={ ( value ) => setAttributes( { quantity: value } ) }
 				/>
 				<ToggleControl

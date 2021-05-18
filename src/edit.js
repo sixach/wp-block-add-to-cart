@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { get, set, map, isArray, parseInt, toString, filter, find, isEmpty } from 'lodash';
+import { get, set, map, isArray, parseInt, toString, filter, find, merge } from 'lodash';
 
 /**
  * Utility helper methods specific for Sixa projects.
@@ -65,7 +65,7 @@ import { withSelect, useDispatch } from '@wordpress/data';
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/packages/compose/README.md
  */
-import { compose, withInstanceId } from '@wordpress/compose';
+import { compose, withState, withInstanceId } from '@wordpress/compose';
 
 /**
  * EventManager for JavaScript.
@@ -86,7 +86,7 @@ import { useBlockProps, RichText, withColors, __experimentalUseGradient } from '
 /**
  * Utility helper methods/variables.
  */
- import utils from './utils';
+import utils from './utils';
 
 /**
  * This component allows users to select a product from a single-option menu.
@@ -125,10 +125,7 @@ function Edit( props ) {
 	const [ isEditing, setIsEditing ] = useState( true );
 	const [ wpQuery, setWpQuery ] = useState( '' );
 	const [ productOptions, setProductOptions ] = useState( [] );
-	const [ stockQuantity, setStockQuantity ] = useState( 1 );
-	const [ priceHtml, setPriceHtml ] = useState( '' );
-	const [ stockHtml, setStockHtml ] = useState( '' );
-	const { isSelected, attributes, setAttributes, textColor, backgroundColor, useGradient } = props;
+	const { isSelected, attributes, setAttributes, textColor, backgroundColor, useGradient, priceHtml, stockHtml, setState } = props;
 	const { postId, text, textAlign, placeholder, displayPrice, displayStock } = attributes;
 	const { gradientClass, gradientValue } = useGradient;
 	const textColorClass = get( textColor, 'class' );
@@ -177,11 +174,12 @@ function Edit( props ) {
 	}, [ wpQuery ] );
 
 	useEffect( () => {
+		const updateState = ( destination, source ) => merge( {}, destination, source );
 		const findProduct = find( wpQuery, [ 'id', parseInt( postId ) ] );
 
-		setPriceHtml( get( findProduct, 'price_html' ) );
-		setStockHtml( get( findProduct, 'stock_html' ) );
-		setStockQuantity( get( findProduct, 'stock_quantity' ) );
+		setState( ( state ) => updateState( state, { priceHtml: get( findProduct, 'price_html' ) } ) );
+		setState( ( state ) => updateState( state, { stockHtml: get( findProduct, 'stock_html' ) } ) );
+		setState( ( state ) => updateState( state, { stockQty: get( findProduct, 'stock_quantity' ) } ) );
 	}, [ postId, wpQuery ] );
 
 	if ( ! textColorClass ) {
@@ -245,7 +243,7 @@ function Edit( props ) {
 				{ isSelected && ! isEditing && postId && (
 					<>
 						<Controls { ...props } toggleEditing={ toggleEditing } />
-						<Inspector { ...props } stockQuantity={ stockQuantity } isPrice={ ! isEmpty( priceHtml ) } isStock={ ! isEmpty( stockHtml ) } />
+						<Inspector { ...props } />
 					</>
 				) }
 			</div>
@@ -256,6 +254,11 @@ function Edit( props ) {
 export default compose( [
 	withInstanceId,
 	withColors( { textColor: 'color' }, 'backgroundColor' ),
+	withState( {
+		priceHtml: '',
+		stockHtml: '',
+		stockQty: 1,
+	} ),
 	withSelect( () => {
 		return {
 			useGradient: __experimentalUseGradient(),
