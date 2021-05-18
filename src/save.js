@@ -21,7 +21,7 @@ import { useBlockProps, RichText, getColorClassName, __experimentalGetGradientCl
 /**
  * Utility helper methods/variables.
  */
- import utils from './utils';
+import utils from './utils';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -35,7 +35,20 @@ import { useBlockProps, RichText, getColorClassName, __experimentalGetGradientCl
  */
 export default function save( { attributes } ) {
 	const styles = {};
-	const { postId, quantity, text, displayPrice, displayStock, textAlign, textColor, customTextColor, backgroundColor, customBackgroundColor, gradient, customGradient } = attributes;
+	const {
+		postId,
+		quantity,
+		text,
+		displayPrice,
+		displayStock,
+		textAlign,
+		textColor,
+		customTextColor,
+		backgroundColor,
+		customBackgroundColor,
+		gradient,
+		customGradient,
+	} = attributes;
 	const textColorClass = getColorClassName( 'color', textColor );
 	const backgroundColorClass = getColorClassName( 'background-color', backgroundColor );
 	const gradientClass = __experimentalGetGradientClass( gradient );
