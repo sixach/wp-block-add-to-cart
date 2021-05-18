@@ -1,7 +1,7 @@
 {
 	"name": "sixa/wp-block-add-to-cart",
 	"type": "wordpress-plugin",
-	"description": "Add-to-cart block for WordPress editor.",
+	"description": "Add to Cart block for WordPress editor.",
 	"keywords": [
 		"add-to-cart",
 		"woocommerce",
