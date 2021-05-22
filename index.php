@@ -1,14 +1,15 @@
 <?php
 /**
+ * @wordpress-plugin
  * Plugin Name:         Sixa - Add to Cart
  * Description:         Add to Cart block for WordPress editor.
  * Version:             0.1.0
+ * Requires at least:   5.7
+ * Requires PHP:        7.2
  * Author:              sixa AG
  * License:             GPL-3.0-or-later
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         sixa
- * Requires at least:   WordPress 5.6
- * Requires PHP:        7.2
  *
  * @package             sixa
  */
