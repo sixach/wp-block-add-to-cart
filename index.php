@@ -3,7 +3,7 @@
  * @wordpress-plugin
  * Plugin Name:         Sixa - Add to Cart
  * Description:         Add to Cart block for WordPress editor.
- * Version:             0.1.0
+ * Version:             1.0.0
  * Requires at least:   5.7
  * Requires PHP:        7.2
  * Author:              sixa AG

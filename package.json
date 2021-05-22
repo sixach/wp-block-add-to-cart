@@ -1,6 +1,6 @@
 {
 	"name": "@sixa/wp-block-add-to-cart",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Add to Cart block for WordPress editor.",
 	"keywords": [
 		"add-to-cart",
