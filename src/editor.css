@@ -4,19 +4,19 @@
 
 .wp-block-[prefix]-add-to-cart {
 
-    .[prefix]-product-select {
+	.[prefix]-product-select {
 
-        .components-form-token-field__suggestions-list {
-            padding-left: 0;
-            margin-top: 15px;
-            margin-bottom: 0;
-        }
+		.components-form-token-field__suggestions-list {
+			padding-left: 0;
+			margin-top: 15px;
+			margin-bottom: 0;
+		}
 
-        .components-combobox-control__input {
+		.components-combobox-control__input {
 
-            &[aria-expanded="false"] {
-                min-height: 26px;
-            }
-        }
-    }
+			&[aria-expanded="false"] {
+				min-height: 26px;
+			}
+		}
+	}
 }
