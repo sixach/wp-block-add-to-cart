@@ -81,7 +81,7 @@ import { applyFilters } from '@wordpress/hooks';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps, RichText, withColors, __experimentalUseGradient } from '@wordpress/block-editor';
+import { useBlockProps, withColors, __experimentalUseGradient } from '@wordpress/block-editor';
 
 /**
  * Utility helper methods/variables.
@@ -92,6 +92,11 @@ import utils from './utils';
  * This component allows users to select a product from a single-option menu.
  */
 import ProductSelect from './product-select';
+
+/**
+ * This component is intended to be displayed in place of the actual button.
+ */
+import AddToCart from './add-to-cart';
 
 /**
  * Block Toolbar controls settings.
@@ -213,28 +218,27 @@ function Edit( props ) {
 						) : (
 							<>
 								{ displayPrice && <RawHTML className={ `${ className }__price` }>{ priceHtml }</RawHTML> }
-								<RichText
-									preserveWhiteSpace
-									keepPlaceholderOnFocus
-									withoutInteractiveFormatting
-									identifier="text"
-									value={ text }
-									multiline={ false }
-									allowedFormats={ [] }
-									__unstableOnSplitAtEnd={ [] }
-									aria-label={ __( 'Button text', 'sixa' ) }
-									placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
-									onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
-									className={ classnames( 'wp-block-button__link', `${ className }__button`, {
-										'has-text-color': textColorClass,
-										'has-background': backgroundColorClass,
-										'has-background-gradient': gradientValue,
-										[ textColorClass ]: textColorClass,
-										[ backgroundColorClass ]: backgroundColorClass,
-										[ gradientClass ]: gradientClass,
-									} ) }
-									style={ { ...styles } }
-								/>
+								{ applyFilters(
+									'sixa.addToCartComponent',
+									<AddToCart
+										value={ text }
+										placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
+										onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
+										aria-label={ __( 'Button text', 'sixa' ) }
+										className={ classnames( 'wp-block-button__link', `${ className }__button`, {
+											'has-text-color': textColorClass,
+											'has-background': backgroundColorClass,
+											'has-background-gradient': gradientValue,
+											[ textColorClass ]: textColorClass,
+											[ backgroundColorClass ]: backgroundColorClass,
+											[ gradientClass ]: gradientClass,
+										} ) }
+										style={ { ...styles } }
+									/>,
+									className,
+									attributes,
+									setAttributes
+								) }
 								{ displayStock && <RawHTML className={ `${ className }__stock` }>{ stockHtml }</RawHTML> }
 							</>
 						) }

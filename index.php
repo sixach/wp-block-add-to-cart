@@ -35,7 +35,7 @@ function register_block() {
 			'render_callback' => function( $attributes, $content ) {
 				$return = add_attributes( $attributes, $content );
 				// Return the modified content of the block’s output.
-				return $return;
+				return apply_filters( 'sixa_add_to_cart_block_render_callback', $return, $attributes );
 			},
 		)
 	);
@@ -68,7 +68,8 @@ add_filter( 'woocommerce_rest_prepare_product_object', __NAMESPACE__ . '\prepare
  */
 function add_attributes( $attributes, $content ) {
 	$product_id = $attributes['postId'] ?? '';
-	// Bail early, in case the product id is missing.
+	$text       = $attributes['text'] ?? '';
+	// Bail early, in case the product id is missing or button text is not entered.
 	if ( ! $product_id ) {
 		return $content;
 	}
@@ -77,30 +78,42 @@ function add_attributes( $attributes, $content ) {
 	$dom   = new \DOMDocument();
 	// Loads an XML document from the given form content (string).
 	$dom->loadXML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-	$xpath           = new \DomXPath( $dom );
-	$button_node     = $xpath->query( '//a' );
-	$product         = wc_get_product( $product_id );
-	$display_price   = $attributes['displayPrice'] ?? false;
-	$display_stock   = $attributes['displayStock'] ?? false;
-	$custom_classes  = array( 'class' => $button_node->item( 0 )->getAttribute( 'class' ) );
-	$html_attributes = get_attributes( $product, $custom_classes );
+	$xpath         = new \DomXPath( $dom );
+	$button_node   = $xpath->query( '//a' );
+	$product       = wc_get_product( $product_id );
+	$display_price = $attributes['displayPrice'] ?? false;
+	$display_stock = $attributes['displayStock'] ?? false;
 
 	// Get the product price in html format.
 	if ( $display_price ) {
-		$price_node                       = $xpath->query( "//div[contains(@class, '" . $class . '__price' . "')]" );
-		$price_node->item( 0 )->nodeValue = $product->get_price_html();
+		$price_node = $xpath->query( "//div[contains(@class, '" . $class . '__price' . "')]" );
+
+		// Check if the price node exists.
+		if ( $price_node->length ) {
+			$price_node->item( 0 )->nodeValue = $product->get_price_html();
+		}
 	}
 
-	if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
-		foreach ( $html_attributes as $key => $value ) {
-			$button_node->item( 0 )->setAttribute( $key, $value );
+	// Check if the button node exists.
+	if ( $button_node->length ) {
+		$custom_classes  = array( 'class' => $button_node->item( 0 )->getAttribute( 'class' ) );
+		$html_attributes = get_attributes( $product, $custom_classes );
+
+		if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
+			foreach ( $html_attributes as $key => $value ) {
+				$button_node->item( 0 )->setAttribute( $key, $value );
+			}
 		}
 	}
 
 	// Get HTML to show product stock.
 	if ( $display_stock ) {
-		$stock_node                       = $xpath->query( "//div[contains(@class, '" . $class . '__stock' . "')]" );
-		$stock_node->item( 0 )->nodeValue = wc_get_stock_html( $product );
+		$stock_node = $xpath->query( "//div[contains(@class, '" . $class . '__stock' . "')]" );
+
+		// Check if the stock node exists.
+		if ( $stock_node->length ) {
+			$stock_node->item( 0 )->nodeValue = wc_get_stock_html( $product );
+		}
 	}
 
 	// Dumps the internal document into a string using HTML formatting.

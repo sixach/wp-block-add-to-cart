@@ -74,20 +74,22 @@ export default function save( { attributes } ) {
 	return (
 		<div { ...blockProps }>
 			{ displayPrice && <div className={ `${ className }__price` }></div> }
-			<RichText.Content
-				tagName="a"
-				value={ text }
-				data-quantity={ quantity }
-				className={ classnames( 'button', 'wp-block-button__link', `${ className }__button`, {
-					'has-text-color': textColorClass,
-					'has-background': backgroundColorClass,
-					'has-background-gradient': gradient || customGradient,
-					[ textColorClass ]: textColorClass,
-					[ backgroundColorClass ]: backgroundColorClass,
-					[ gradientClass ]: gradientClass,
-				} ) }
-				style={ { ...styles } }
-			/>
+			{ postId && ! RichText.isEmpty( text ) && (
+				<RichText.Content
+					tagName="a"
+					value={ text }
+					data-quantity={ quantity }
+					className={ classnames( 'button', 'wp-block-button__link', `${ className }__button`, {
+						'has-text-color': textColorClass,
+						'has-background': backgroundColorClass,
+						'has-background-gradient': gradient || customGradient,
+						[ textColorClass ]: textColorClass,
+						[ backgroundColorClass ]: backgroundColorClass,
+						[ gradientClass ]: gradientClass,
+					} ) }
+					style={ { ...styles } }
+				/>
+			) }
 			{ displayStock && <div className={ `${ className }__stock` }></div> }
 		</div>
 	);
