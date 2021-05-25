@@ -74,7 +74,7 @@ export default function save( { attributes } ) {
 	return (
 		<div { ...blockProps }>
 			{ displayPrice && <div className={ `${ className }__price` }></div> }
-			{ postId && ! RichText.isEmpty( text ) && (
+			{ postId && (
 				<RichText.Content
 					tagName="a"
 					value={ text }
