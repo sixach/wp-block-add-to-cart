@@ -53,7 +53,7 @@ add_action( 'init', __NAMESPACE__ . '\register_block' );
 function prepare_product( $response, $post ) {
 	$product_id                   = is_callable( array( $post, 'get_id' ) ) ? $post->get_id() : ( ! empty( $post->ID ) ? $post->ID : null );
 	$product                      = wc_get_product( $product_id );
-	$response->data['stock_html'] = wc_get_stock_html( $product );
+	$response->data['stock_html'] = apply_filters( 'sixa_add_to_cart_block_product_stock_html', wc_get_stock_html( $product ), $product );
 
 	return $response;
 }
@@ -112,7 +112,7 @@ function add_attributes( $attributes, $content ) {
 
 		// Check if the stock node exists.
 		if ( $stock_node->length ) {
-			$stock_node->item( 0 )->nodeValue = wc_get_stock_html( $product );
+			$stock_node->item( 0 )->nodeValue = apply_filters( 'sixa_add_to_cart_block_product_stock_html', wc_get_stock_html( $product ), $product );
 		}
 	}
 
