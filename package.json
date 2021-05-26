@@ -67,15 +67,15 @@
 	},
 	"devDependencies": {
 		"@sixa/wp-block-utils": "^0.10.0",
-		"@wordpress/scripts": "^16.1.0",
-		"autoprefixer": "^10.2.5",
-		"classnames": "^2.3.1",
+		"@wordpress/scripts": "16.1.0",
+		"autoprefixer": "10.2.5",
+		"classnames": "2.3.1",
 		"husky": "^6.0.0",
-		"lint-staged": "^11.0.0",
-		"lodash": "^4.17.21",
-		"postcss": "^8.3.0",
-		"postcss-nested": "^5.0.5",
-		"postcss-nested-ancestors": "^2.0.0",
-		"postcss-selector-replace": "^1.0.2"
+		"lint-staged": "11.0.0",
+		"lodash": "4.17.21",
+		"postcss": "8.3.0",
+		"postcss-nested": "5.0.5",
+		"postcss-nested-ancestors": "2.0.0",
+		"postcss-selector-replace": "1.0.2"
 	}
 }
