@@ -6,6 +6,11 @@
 import { get, set } from 'lodash';
 
 /**
+ * Utility helper methods specific for Sixa projects.
+ */
+import { blockClassName } from '@sixach/wp-block-utils';
+
+/**
  * Utility for conditionally joining CSS class names together.
  */
 import classnames from 'classnames';
@@ -17,11 +22,6 @@ import classnames from 'classnames';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps, RichText, getColorClassName, __experimentalGetGradientClass } from '@wordpress/block-editor';
-
-/**
- * Utility helper methods/variables.
- */
-import utils from './utils';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -57,7 +57,7 @@ export default function save( { attributes } ) {
 			[ `has-text-align-${ textAlign }` ]: postId && textAlign,
 		} ),
 	} );
-	const className = utils.blockClassName( get( blockProps, 'className' ) );
+	const className = blockClassName( get( blockProps, 'className' ) );
 
 	if ( ! textColorClass ) {
 		set( styles, 'color', customTextColor );
