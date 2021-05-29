@@ -6,9 +6,14 @@
 import { get, set, map, isArray, parseInt, toString, filter, find, merge } from 'lodash';
 
 /**
+ * Helper React components specific for Sixa projects.
+ */
+import { Loading } from '@sixach/wp-block-components';
+
+/**
  * Utility helper methods specific for Sixa projects.
  */
-import { LoadingSpinner } from '@sixa/wp-block-utils';
+import { blockClassName } from '@sixach/wp-block-utils';
 
 /**
  * Utility for conditionally joining CSS class names together.
@@ -84,11 +89,6 @@ import { applyFilters } from '@wordpress/hooks';
 import { useBlockProps, withColors, __experimentalUseGradient } from '@wordpress/block-editor';
 
 /**
- * Utility helper methods/variables.
- */
-import utils from './utils';
-
-/**
  * This component allows users to select a product from a single-option menu.
  */
 import ProductSelect from './product-select';
@@ -146,7 +146,7 @@ function Edit( props ) {
 			[ `has-text-align-${ textAlign }` ]: postId && textAlign,
 		} ),
 	} );
-	const className = utils.blockClassName( get( blockProps, 'className' ) );
+	const className = blockClassName( get( blockProps, 'className' ) );
 
 	useEffect( () => {
 		set( isStillMounted, 'current', true );
@@ -203,7 +203,7 @@ function Edit( props ) {
 		<>
 			<div { ...blockProps }>
 				{ ! isArray( wpQuery ) || ! get( isStillMounted, 'current' ) ? (
-					<LoadingSpinner />
+					<Loading label={ __( 'Fetching…', 'sixa' ) } />
 				) : (
 					<>
 						{ isEditing ? (
