@@ -20,6 +20,8 @@
 
 namespace SixaAddToCartBlock;
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
