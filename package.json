@@ -74,7 +74,7 @@
 		"husky": "^6.0.0",
 		"lint-staged": "11.0.0",
 		"lodash": "4.17.21",
-		"postcss": "8.3.0",
+		"postcss": "8.3.4",
 		"postcss-nested": "5.0.5",
 		"postcss-nested-ancestors": "2.0.0",
 		"postcss-selector-replace": "1.0.2"
