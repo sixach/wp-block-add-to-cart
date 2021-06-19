@@ -75,6 +75,7 @@
 		"lint-staged": "11.0.0",
 		"lodash": "4.17.21",
 		"postcss": "^8.3.5",
+		"postcss-important-startstop": "^2.0.0",
 		"postcss-nested": "5.0.5",
 		"postcss-nested-ancestors": "2.0.0",
 		"postcss-selector-replace": "1.0.2"
