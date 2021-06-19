@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { get, set, map, isArray, parseInt, toString, filter, find, merge } from 'lodash';
+import { get, set, isArray, parseInt, toString, filter, find, assign } from 'lodash';
 
 /**
  * Helper React components specific for Sixa projects.
@@ -13,7 +13,7 @@ import { Loading } from '@sixach/wp-block-components';
 /**
  * Utility helper methods specific for Sixa projects.
  */
-import { blockClassName } from '@sixach/wp-block-utils';
+import { blockClassName, selectOptions } from '@sixach/wp-block-utils';
 
 /**
  * Utility for conditionally joining CSS class names together.
@@ -136,9 +136,6 @@ function Edit( props ) {
 	const textColorClass = get( textColor, 'class' );
 	const backgroundColorClass = get( backgroundColor, 'class' );
 	const apiFetchQuery = applyFilters( 'sixa.addToCartApiFetchQueryArgs', { per_page: -1 } );
-	const purchasable = ( query ) => filter( query, [ 'purchasable', true ] );
-	const selectOptions = ( query ) => map( query, ( { id, name } ) => ( { label: `(#${ id }) — ${ name }`, value: toString( id ) } ) );
-	const handleOnChangeProduct = ( value ) => setAttributes( { postId: parseInt( value ) } );
 	const { createErrorNotice } = useDispatch( 'core/notices' );
 	const toggleEditing = () => setIsEditing( ! isEditing );
 	const blockProps = useBlockProps( {
@@ -147,6 +144,14 @@ function Edit( props ) {
 		} ),
 	} );
 	const className = blockClassName( get( blockProps, 'className' ) );
+	const classNames = classnames( 'wp-block-button__link', `${ className }__button`, {
+		'has-text-color': textColorClass,
+		'has-background': backgroundColorClass,
+		'has-background-gradient': gradientValue,
+		[ textColorClass ]: textColorClass,
+		[ backgroundColorClass ]: backgroundColorClass,
+		[ gradientClass ]: gradientClass,
+	} );
 
 	useEffect( () => {
 		set( isStillMounted, 'current', true );
@@ -156,7 +161,7 @@ function Edit( props ) {
 		} )
 			.then( ( data ) => {
 				if ( isStillMounted.current ) {
-					setWpQuery( purchasable( data ) );
+					setWpQuery( filter( data, [ 'purchasable', true ] ) );
 				}
 			} )
 			.catch( () => {
@@ -175,16 +180,14 @@ function Edit( props ) {
 	}, [] );
 
 	useEffect( () => {
-		setProductOptions( selectOptions( wpQuery ) );
+		setProductOptions( selectOptions( wpQuery, { id: 'value', name: 'label' }, [] ) );
 	}, [ wpQuery ] );
 
 	useEffect( () => {
-		const updateState = ( destination, source ) => merge( {}, destination, source );
 		const findProduct = find( wpQuery, [ 'id', parseInt( postId ) ] );
-
-		setState( ( state ) => updateState( state, { priceHtml: get( findProduct, 'price_html' ) } ) );
-		setState( ( state ) => updateState( state, { stockHtml: get( findProduct, 'stock_html' ) } ) );
-		setState( ( state ) => updateState( state, { stockQty: get( findProduct, 'stock_quantity' ) } ) );
+		setState( ( state ) => assign( {}, state, { priceHtml: get( findProduct, 'price_html' ) } ) );
+		setState( ( state ) => assign( {}, state, { stockHtml: get( findProduct, 'stock_html' ) } ) );
+		setState( ( state ) => assign( {}, state, { stockQty: get( findProduct, 'stock_quantity' ) } ) );
 	}, [ postId, wpQuery ] );
 
 	if ( ! textColorClass ) {
@@ -212,7 +215,7 @@ function Edit( props ) {
 								instructions={ __( 'Select a product from the dropdown menu below:', 'sixa' ) }
 								productValue={ toString( postId ) }
 								productOptions={ productOptions }
-								onChange={ handleOnChangeProduct }
+								onChange={ ( value ) => setAttributes( { postId: parseInt( value ) } ) }
 								toggleEditing={ toggleEditing }
 							/>
 						) : (
@@ -225,17 +228,12 @@ function Edit( props ) {
 										placeholder={ placeholder || __( 'Add to cart…', 'sixa' ) }
 										onChange={ ( value ) => setAttributes( { text: escapeHTML( value ) } ) }
 										aria-label={ __( 'Button text', 'sixa' ) }
-										className={ classnames( 'wp-block-button__link', `${ className }__button`, {
-											'has-text-color': textColorClass,
-											'has-background': backgroundColorClass,
-											'has-background-gradient': gradientValue,
-											[ textColorClass ]: textColorClass,
-											[ backgroundColorClass ]: backgroundColorClass,
-											[ gradientClass ]: gradientClass,
-										} ) }
-										style={ { ...styles } }
+										className={ classNames }
+										style={ styles }
 									/>,
 									className,
+									classNames,
+									styles,
 									attributes,
 									setAttributes
 								) }
