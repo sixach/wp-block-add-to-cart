@@ -3,7 +3,7 @@
 /**
  * Utility for libraries from the `Lodash`.
  */
-import { get, set, isArray, parseInt, toString, filter, find, assign } from 'lodash';
+import { get, set, isArray, parseInt, filter, find, assign } from 'lodash';
 
 /**
  * Helper React components specific for Sixa projects.
@@ -109,14 +109,6 @@ import Controls from './controls';
 import Inspector from './inspector';
 
 /**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.css';
-
-/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -213,9 +205,9 @@ function Edit( props ) {
 							<ProductSelect
 								label={ __( 'Product', 'sixa' ) }
 								instructions={ __( 'Select a product from the dropdown menu below:', 'sixa' ) }
-								productValue={ toString( postId ) }
-								productOptions={ productOptions }
-								onChange={ ( value ) => setAttributes( { postId: parseInt( value ) } ) }
+								value={ postId }
+								options={ productOptions }
+								onChange={ ( value ) => setAttributes( { postId: value } ) }
 								toggleEditing={ toggleEditing }
 							/>
 						) : (
