@@ -1,0 +1,27 @@
+/**
+ * The following styles get applied inside the editor only.
+ */
+
+.comboboxControl {
+
+	ul {
+
+		@important {
+			padding-left: 0;
+			margin-top: 15px;
+			margin-bottom: 0;
+		}
+	}
+
+	input {
+
+		&[aria-expanded="false"] {
+			min-height: 26px;
+		}
+	}
+}
+
+.notice {
+	margin-left: 0;
+	margin-right: 0;
+}

@@ -26,6 +26,11 @@ import { Placeholder, Flex, FlexBlock, FlexItem, ComboboxControl, Button } from 
 import { Icon, edit } from '@wordpress/icons';
 
 /**
+ * Scoped styles.
+ */
+import styles from './editor.module.css';
+
+/**
  * ProductSelect is a React component that could be displayed in place of the actual data.
  * This can be used to represent an example state prior to any actual block content being placed.
  *
@@ -33,35 +38,32 @@ import { Icon, edit } from '@wordpress/icons';
  * @param 	{Object}    props 					    Block meta-data properties.
  * @param 	{string}    props.label 		        The label for the control.
  * @param 	{string}    props.instructions 		    The help text that will be displayed as the content.
- * @param 	{string}    props.productValue 	        The current value of the `Product` dropdown menu.
+ * @param 	{string}    props.value 	            The current value of the `Product` dropdown menu.
+ * @param 	{Array}     props.options 	            The product options that can be chosen from.
  * @param 	{Function}  props.onChange 	        	Callback method for the `Product` dropdown menu.
- * @param 	{Array}     props.productOptions 	    The product options that can be chosen from.
  * @param 	{Function}  props.toggleEditing 		Toggle the placeholder component view.
  * @return 	{WPElement} 						    Element to render.
  */
-function ProductSelect( { label, instructions, productValue, productOptions, onChange, toggleEditing } ) {
+export default function ProductSelect( { label, instructions, value, options, onChange, toggleEditing } ) {
 	return (
-		<>
-			<Placeholder label={ label } instructions={ instructions } icon={ <Icon icon={ edit } /> }>
-				<Flex align="top">
-					<FlexBlock className="sixa-product-select">
-						<ComboboxControl
-							allowReset={ false }
-							value={ productValue }
-							options={ productOptions }
-							onFilterValueChange={ noop }
-							onChange={ onChange }
-						/>
-					</FlexBlock>
-					<FlexItem>
-						<Button isPrimary disabled={ ! productValue } onClick={ toggleEditing }>
-							{ __( 'Done', 'sixa' ) }
-						</Button>
-					</FlexItem>
-				</Flex>
-			</Placeholder>
-		</>
+		<Placeholder label={ label } instructions={ instructions } icon={ <Icon icon={ edit } /> }>
+			<Flex align="top">
+				<FlexBlock className="sixa-product-select">
+					<ComboboxControl
+						allowReset={ false }
+						value={ value }
+						options={ options }
+						onChange={ onChange }
+						onFilterValueChange={ noop }
+						className={ styles.comboboxControl }
+					/>
+				</FlexBlock>
+				<FlexItem>
+					<Button isPrimary disabled={ ! value } onClick={ toggleEditing }>
+						{ __( 'Done', 'sixa' ) }
+					</Button>
+				</FlexItem>
+			</Flex>
+		</Placeholder>
 	);
 }
-
-export default ProductSelect;

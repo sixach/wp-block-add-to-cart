@@ -4,6 +4,7 @@ module.exports = {
 			before: [ '[prefix]' ],
 			after: [ 'sixa' ],
 		},
+		'postcss-important-startstop': {},
 		'postcss-nested-ancestors': {},
 		'postcss-nested': {},
 		autoprefixer: {},

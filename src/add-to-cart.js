@@ -19,26 +19,22 @@ import { RichText } from '@wordpress/block-editor';
  * @param 	{Object}    props.style 		        CSS inline styles.
  * @return 	{WPElement} 						    Element to render.
  */
-const AddToCart = ( { className, value, ariaLabel, placeholder, onChange, style } ) => {
+export default function AddToCart( { className, value, ariaLabel, placeholder, onChange, style } ) {
 	return (
-		<>
-			<RichText
-				preserveWhiteSpace
-				keepPlaceholderOnFocus
-				withoutInteractiveFormatting
-				identifier="text"
-				value={ value }
-				multiline={ false }
-				allowedFormats={ [] }
-				__unstableOnSplitAtEnd={ [] }
-				aria-label={ ariaLabel }
-				placeholder={ placeholder }
-				onChange={ onChange }
-				className={ className }
-				style={ style }
-			/>
-		</>
+		<RichText
+			preserveWhiteSpace
+			keepPlaceholderOnFocus
+			withoutInteractiveFormatting
+			identifier="text"
+			value={ value }
+			multiline={ false }
+			allowedFormats={ [] }
+			__unstableOnSplitAtEnd={ [] }
+			aria-label={ ariaLabel }
+			placeholder={ placeholder }
+			onChange={ onChange }
+			className={ className }
+			style={ style }
+		/>
 	);
-};
-
-export default AddToCart;
+}
