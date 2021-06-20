@@ -127,7 +127,7 @@ function Edit( props ) {
 	const { gradientClass, gradientValue } = useGradient;
 	const textColorClass = get( textColor, 'class' );
 	const backgroundColorClass = get( backgroundColor, 'class' );
-	const apiFetchQuery = applyFilters( 'sixa.addToCartApiFetchQueryArgs', { per_page: -1 } );
+	const apiFetchQuery = applyFilters( 'sixa.addToCartApiFetchQueryArgs', { per_page: -1, status: 'publish' } );
 	const { createErrorNotice } = useDispatch( 'core/notices' );
 	const toggleEditing = () => setIsEditing( ! isEditing );
 	const blockProps = useBlockProps( {
