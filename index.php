@@ -90,6 +90,11 @@ function add_attributes( $attributes, $content ) {
 	$display_price = $attributes['displayPrice'] ?? false;
 	$display_stock = $attributes['displayStock'] ?? false;
 
+	// Bail early, in case the product is missing.
+	if ( empty( $product ) ) {
+		return $content;
+	}
+
 	// Get the product price in html format.
 	if ( $display_price ) {
 		$price_node = $xpath->query( "//div[contains(@class, '" . $class . '__price' . "')]" );
