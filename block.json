@@ -38,6 +38,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"hideIfOutOfStock": {
+			"type": "boolean",
+			"default": false
+		},
 		"textColor": {
 			"type": "string"
 		},
