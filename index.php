@@ -97,7 +97,7 @@ function add_attributes( $attributes, $content ) {
 		return $content;
 	}
 
-	// Hide the button if the options is enabled and the product is out of stock.
+	// Hide the button if the option is enabled and the product is out of stock.
 	if ( $hide_if_out_of_stock && ! $product->is_in_stock() ) {
 		return '';
 	}
