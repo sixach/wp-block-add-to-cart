@@ -86,7 +86,7 @@ export default function Inspector( props ) {
 				/>
 				<ToggleControl
 					label={ __( 'Hide if out of stock?', 'sixa' ) }
-					help={ __( 'Automatically hide the add-to-cart button in case that the product is out of stock.', 'sixa' ) }
+					help={ __( 'Automatically hide the add-to-cart button in case the product is out of stock.', 'sixa' ) }
 					checked={ hideIfOutOfStock }
 					onChange={ () => setAttributes( { hideIfOutOfStock: ! hideIfOutOfStock } ) }
 				/>
