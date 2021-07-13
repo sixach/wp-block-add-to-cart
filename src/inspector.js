@@ -44,7 +44,7 @@ import { InspectorControls, ContrastChecker, __experimentalPanelColorGradientSet
  */
 export default function Inspector( props ) {
 	const { attributes, setAttributes, textColor, setTextColor, backgroundColor, setBackgroundColor, useGradient, stockQty, priceHtml, stockHtml } = props;
-	const { quantity, displayPrice, displayStock } = attributes;
+	const { quantity, displayPrice, displayStock, hideIfOutOfStock } = attributes;
 	const { setGradient, gradientValue } = useGradient;
 	const isPrice = ! isEmpty( priceHtml );
 	const isStock = ! isEmpty( stockHtml );
@@ -83,6 +83,12 @@ export default function Inspector( props ) {
 					disabled={ ! isStock }
 					checked={ displayStock }
 					onChange={ () => setAttributes( { displayStock: ! displayStock } ) }
+				/>
+				<ToggleControl
+					label={ __( 'Hide if out of stock?', 'sixa' ) }
+					help={ __( 'Automatically hide the add-to-cart button in case the product is out of stock.', 'sixa' ) }
+					checked={ hideIfOutOfStock }
+					onChange={ () => setAttributes( { hideIfOutOfStock: ! hideIfOutOfStock } ) }
 				/>
 			</PanelBody>
 			<PanelColorGradientSettings

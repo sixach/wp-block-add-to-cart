@@ -75,6 +75,7 @@ add_filter( 'woocommerce_rest_prepare_product_object', __NAMESPACE__ . '\prepare
 function add_attributes( $attributes, $content ) {
 	$product_id = $attributes['postId'] ?? '';
 	$text       = $attributes['text'] ?? '';
+
 	// Bail early, in case the product id is missing or button text is not entered.
 	if ( ! $product_id ) {
 		return $content;
@@ -84,15 +85,21 @@ function add_attributes( $attributes, $content ) {
 	$dom   = new \DOMDocument();
 	// Loads an XML document from the given form content (string).
 	$dom->loadXML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-	$xpath         = new \DomXPath( $dom );
-	$button_node   = $xpath->query( '//a' );
-	$product       = wc_get_product( $product_id );
-	$display_price = $attributes['displayPrice'] ?? false;
-	$display_stock = $attributes['displayStock'] ?? false;
+	$xpath                = new \DomXPath( $dom );
+	$button_node          = $xpath->query( '//a' );
+	$product              = wc_get_product( $product_id );
+	$display_price        = $attributes['displayPrice'] ?? false;
+	$display_stock        = $attributes['displayStock'] ?? false;
+	$hide_if_out_of_stock = $attributes['hideIfOutOfStock'] ?? false;
 
 	// Bail early, in case the product is missing.
 	if ( empty( $product ) ) {
 		return $content;
+	}
+
+	// Hide the button if the option is enabled and the product is out of stock.
+	if ( $hide_if_out_of_stock && ! $product->is_in_stock() ) {
+		return '';
 	}
 
 	// Get the product price in html format.
