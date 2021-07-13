@@ -85,11 +85,11 @@ function add_attributes( $attributes, $content ) {
 	$dom   = new \DOMDocument();
 	// Loads an XML document from the given form content (string).
 	$dom->loadXML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
-	$xpath         = new \DomXPath( $dom );
-	$button_node   = $xpath->query( '//a' );
-	$product       = wc_get_product( $product_id );
-	$display_price = $attributes['displayPrice'] ?? false;
-	$display_stock = $attributes['displayStock'] ?? false;
+	$xpath                = new \DomXPath( $dom );
+	$button_node          = $xpath->query( '//a' );
+	$product              = wc_get_product( $product_id );
+	$display_price        = $attributes['displayPrice'] ?? false;
+	$display_stock        = $attributes['displayStock'] ?? false;
 	$hide_if_out_of_stock = $attributes['hideIfOutOfStock'] ?? false;
 
 	// Bail early, in case the product is missing.
