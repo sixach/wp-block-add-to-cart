@@ -9,6 +9,16 @@
 	"labels": [ "type: dependencies", "skip-changelog" ],
 	"packageRules": [
 		{
+			"matchPackagePatterns": "^@wordpress",
+			"groupName": ["wordpress packages"],
+			"addLabels": ["WordPress"]
+		},
+		{
+			"matchPackagePatterns": "^postcss",
+			"groupName": ["postcss packages"],
+			"addLabels": ["PostCSS"]
+		},
+		{
 			"updateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true,
 			"requiredStatusChecks": null
