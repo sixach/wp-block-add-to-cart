@@ -11,10 +11,10 @@
 	"labels": [ "type: dependencies", "skip-changelog" ],
 	"packageRules": [
 		{
-			"updateTypes": ["minor", "patch", "pin", "digest"],
+			"updateTypes": [ "minor", "patch", "pin", "digest" ],
 			"automerge": true,
 			"requiredStatusChecks": null
 		}
 	],
-  "rebaseWhen": "conflicted"
+  	"rebaseWhen": "conflicted"
 }
