@@ -1,34 +1,34 @@
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
+ * @see  	https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
 import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
  */
-import Edit from './edit';
+import Edit from './Edit';
 import save from './save';
 
 /**
- * Every block starts by registering a new block type definition.
+ * Block registration API.
  *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
+ * @see    https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType( 'sixa/add-to-cart', {
 	/**
-	 * @see https://make.wordpress.org/core/2020/11/18/block-api-version-2/
+	 * @see    https://make.wordpress.org/core/2020/11/18/block-api-version-2/
 	 */
 	apiVersion: 2,
 
 	/**
-	 * @see ./edit.js
+	 * @see    ./edit.js
 	 */
 	edit: Edit,
 
 	/**
-	 * @see ./save.js
+	 * @see    ./save.js
 	 */
 	save,
 } );
