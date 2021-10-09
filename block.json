@@ -57,6 +57,6 @@
 			"type": "string"
 		}
 	},
-	"textdomain": "sixa",
+	"textdomain": "sixa-block-add-to-cart",
 	"editorScript": "file:./build/index.js"
 }
