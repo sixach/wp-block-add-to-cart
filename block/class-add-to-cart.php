@@ -194,11 +194,19 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 		 * @return    string
 		 */
 		public static function hide_if_out_of_stock( string $content, array $attributes = array() ): ?string {
-			$hide_if_out_of_stock = $attributes['hideIfOutOfStock'] ?? false;
-			$product_id           = $attributes['postId'] ?? '';
-			$product              = wc_get_product( $product_id );
-			$is_in_stock          = $product->is_in_stock();
-			return ! $is_in_stock && $hide_if_out_of_stock ? null : $content;
+			$product_id = $attributes['postId'] ?? '';
+			$product    = wc_get_product( $product_id );
+
+			if ( self::is_product( (object) $product ) ) {
+				$hide_if_out_of_stock = $attributes['hideIfOutOfStock'] ?? false;
+				$is_in_stock          = $product->is_in_stock();
+
+				if ( ! $is_in_stock && $hide_if_out_of_stock ) {
+					return null;
+				}
+			}
+
+			return $content;
 		}
 
 		/**
@@ -310,7 +318,7 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 		public static function get_html_attributes( object $product, array $custom_classes = array() ): array {
 			$attributes = array();
 
-			if ( is_object( $product ) ) {
+			if ( self::is_product( (object) $product ) ) {
 				$attributes = apply_filters(
 					'sixa_add_to_cart_block_button_attrs',
 					array(
@@ -336,6 +344,17 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 			}
 
 			return $attributes;
+		}
+
+		/**
+		 * Determines whether the examined post object is a product type.
+		 *
+		 * @since     1.0.0
+		 * @param     object $post    Post object.
+		 * @return    bool
+		 */
+		public static function is_product( object $post ): bool {
+			return 'product' === get_post_type( $post ) ?? true;
 		}
 
 		/**
