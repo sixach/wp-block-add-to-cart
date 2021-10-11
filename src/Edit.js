@@ -18,7 +18,7 @@ import { EditableText, Loading, PostSelectForm } from '@sixa/wp-block-components
 /**
  * Helper React hooks specific for Sixa projects.
  */
-import { useGetNodeList, useGetProducts, usePreparePosts, useToggle } from '@sixa/wp-react-hooks';
+import { useFindPostById, useGetNodeList, useGetProducts, usePreparePosts, useToggle } from '@sixa/wp-react-hooks';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -79,11 +79,6 @@ import Inspector from './components/Inspector';
 import Nodes from './components/Nodes';
 
 /**
- * Finds the selected product object according to the given post-id.
- */
-import useFindProduct from './hooks/useFindProduct';
-
-/**
  * Helper constants.
  */
 import Constants from './constants';
@@ -110,7 +105,7 @@ function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgr
 	const { isLoading, productsOptions, productsQuery } = useGetProducts( {}, clientId );
 	const { havePosts } = usePreparePosts( [], 1, productsQuery );
 	const nodeList = useGetNodeList( 'sixa-add-to-cart-block/v1/nodes' );
-	const product = useFindProduct( productsQuery, postId );
+	const product = useFindPostById( postId, productsQuery );
 	const blockProps = useBlockProps( { className: classnames( { [ `has-text-align-${ textAlign }` ]: ! isEditing && textAlign } ) } );
 	const className = blockClassName( blockProps?.className );
 	const { maxStockQuantity, nodes } = useMemo(
