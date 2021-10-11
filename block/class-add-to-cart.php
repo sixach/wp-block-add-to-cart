@@ -354,7 +354,7 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 		 * @return    bool
 		 */
 		public static function is_product( object $post ): bool {
-			return 'product' === get_post_type( $post ) ?? true;
+			return property_exists( $post, 'post_type' ) && 'product' === $post->post_type;
 		}
 
 		/**
