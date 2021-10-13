@@ -12,6 +12,8 @@
 
 namespace Sixa_Blocks;
 
+use Sixa_Snippets\Includes\Utils as Utils;
+
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 if ( ! class_exists( Add_To_Cart::class ) ) :
@@ -231,7 +233,7 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 				$return .= '</div>';
 			}
 
-			return $return;
+			return Utils::normalize_character_entities( $return );
 		}
 
 		/**
