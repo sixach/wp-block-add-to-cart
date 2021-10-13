@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "712414cee268e178dec472efaa9327b0",
+    "content-hash": "3ca0478f4cc4e61339cac30f65d56620",
     "packages": [
         {
             "name": "sixach/wp-block-api",
@@ -72,16 +72,16 @@
         },
         {
             "name": "sixach/wp-snippets",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:sixach/wp-snippets.git",
-                "reference": "80c1f819476cc289d96f891a063b92dc4aedc366"
+                "reference": "82091f7033f23286ae299e466bfffeb9ab29ff2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sixach/wp-snippets/zipball/80c1f819476cc289d96f891a063b92dc4aedc366",
-                "reference": "80c1f819476cc289d96f891a063b92dc4aedc366",
+                "url": "https://api.github.com/repos/sixach/wp-snippets/zipball/82091f7033f23286ae299e466bfffeb9ab29ff2d",
+                "reference": "82091f7033f23286ae299e466bfffeb9ab29ff2d",
                 "shasum": ""
             },
             "require": {
@@ -133,10 +133,10 @@
                 "WordPress"
             ],
             "support": {
-                "source": "https://github.com/sixach/wp-snippets/tree/v1.3.0",
+                "source": "https://github.com/sixach/wp-snippets/tree/v1.4.0",
                 "issues": "https://github.com/sixach/wp-snippets/issues"
             },
-            "time": "2021-09-14T15:31:04+00:00"
+            "time": "2021-10-13T12:51:13+00:00"
         }
     ],
     "packages-dev": [
@@ -2261,16 +2261,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625"
+                "reference": "f268ca40d54617c6e06757f83f699775c9b3ff2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
-                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f268ca40d54617c6e06757f83f699775c9b3ff2e",
+                "reference": "f268ca40d54617c6e06757f83f699775c9b3ff2e",
                 "shasum": ""
             },
             "require": {
@@ -2313,7 +2313,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2021-04-09T00:54:41+00:00"
+            "time": "2021-10-11T04:00:11+00:00"
         },
         {
             "name": "symfony/finder",
