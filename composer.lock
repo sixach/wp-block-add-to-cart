@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ca0478f4cc4e61339cac30f65d56620",
+    "content-hash": "6e1274747e916664bcb111cbbabc9431",
     "packages": [
         {
             "name": "sixach/wp-block-api",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:sixach/wp-block-api.git",
-                "reference": "173f6b4500c4aa15d926bc0623282b02cb9cf0df"
+                "url": "https://github.com/sixach/wp-block-api.git",
+                "reference": "1db3bb81aad9f157c827e5a4230705917060549d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sixach/wp-block-api/zipball/173f6b4500c4aa15d926bc0623282b02cb9cf0df",
-                "reference": "173f6b4500c4aa15d926bc0623282b02cb9cf0df",
+                "url": "https://api.github.com/repos/sixach/wp-block-api/zipball/1db3bb81aad9f157c827e5a4230705917060549d",
+                "reference": "1db3bb81aad9f157c827e5a4230705917060549d",
                 "shasum": ""
             },
             "require": {
@@ -37,17 +37,7 @@
                     "src"
                 ]
             },
-            "scripts": {
-                "lint:wpcs": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
-                ],
-                "lint:wpcbf": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
-                ],
-                "lint:php": [
-                    "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules ."
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
             ],
@@ -65,23 +55,23 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/sixach/wp-block-api/tree/v1.0.1",
-                "issues": "https://github.com/sixach/wp-block-api/issues"
+                "issues": "https://github.com/sixach/wp-block-api/issues",
+                "source": "https://github.com/sixach/wp-block-api/tree/v1.0.2"
             },
-            "time": "2021-09-23T12:34:20+00:00"
+            "time": "2021-10-17T17:16:51+00:00"
         },
         {
             "name": "sixach/wp-snippets",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:sixach/wp-snippets.git",
-                "reference": "82091f7033f23286ae299e466bfffeb9ab29ff2d"
+                "url": "https://github.com/sixach/wp-snippets.git",
+                "reference": "016aa532b89c80e1f97127fc3a27043ac3a30f07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sixach/wp-snippets/zipball/82091f7033f23286ae299e466bfffeb9ab29ff2d",
-                "reference": "82091f7033f23286ae299e466bfffeb9ab29ff2d",
+                "url": "https://api.github.com/repos/sixach/wp-snippets/zipball/016aa532b89c80e1f97127fc3a27043ac3a30f07",
+                "reference": "016aa532b89c80e1f97127fc3a27043ac3a30f07",
                 "shasum": ""
             },
             "require": {
@@ -103,20 +93,7 @@
                     "src"
                 ]
             },
-            "scripts": {
-                "lint:wpcs": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
-                ],
-                "lint:wpcbf": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
-                ],
-                "lint:php": [
-                    "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules ."
-                ],
-                "make-pot": [
-                    "wp i18n make-pot . languages/@@textdomain.pot --exclude=build"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
             ],
@@ -129,14 +106,14 @@
             "description": "A plugin containing factory classes or methods for the Sixa projects.",
             "homepage": "https://www.sixa.ch",
             "keywords": [
-                "Plugin",
-                "WordPress"
+                "plugin",
+                "wordpress"
             ],
             "support": {
-                "source": "https://github.com/sixach/wp-snippets/tree/v1.4.0",
-                "issues": "https://github.com/sixach/wp-snippets/issues"
+                "issues": "https://github.com/sixach/wp-snippets/issues",
+                "source": "https://github.com/sixach/wp-snippets/tree/v1.4.1"
             },
-            "time": "2021-10-13T12:51:13+00:00"
+            "time": "2021-10-16T12:10:17+00:00"
         }
     ],
     "packages-dev": [
@@ -2210,6 +2187,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2020-11-30T07:30:19+00:00"
         },
         {
