@@ -4,7 +4,7 @@
 	"title": "Add to Cart",
 	"category": "widgets",
 	"icon": "store",
-	"description": "Add-to-cart block for WordPress editor.",
+	"description": "Display an add-to-cart button for a given product.",
 	"keywords": [
 		"sixa",
 		"button",
@@ -13,58 +13,50 @@
 		"ecommerce"
 	],
 	"supports": {
-		"html": false,
-		"anchor": true
+		"anchor": true,
+		"html": false
 	},
 	"attributes": {
-		"postId": {
-			"type": "number"
-		},
-		"text": {
-			"type": "string"
-		},
-		"placeholder": {
-			"type": "string"
-		},
-		"quantity": {
-			"type": "number",
-			"default": 1
-		},
-		"displayPrice": {
-			"type": "boolean",
-			"default": false
-		},
-		"displayStock": {
-			"type": "boolean",
-			"default": false
-		},
-		"hideIfOutOfStock": {
-			"type": "boolean",
-			"default": false
-		},
-		"textColor": {
-			"type": "string"
-		},
-		"customTextColor": {
-			"type": "string"
-		},
 		"backgroundColor": {
 			"type": "string"
 		},
 		"customBackgroundColor": {
 			"type": "string"
 		},
+		"customGradient": {
+			"type": "string"
+		},
+		"customTextColor": {
+			"type": "string"
+		},
+		"hiddenNodes": {
+			"type": "array",
+			"default": []
+		},
+		"hideIfOutOfStock": {
+			"type": "boolean",
+			"default": false
+		},
 		"gradient": {
 			"type": "string"
 		},
-		"customGradient": {
+		"postId": {
+			"type": "number"
+		},
+		"quantity": {
+			"type": "number",
+			"default": 1
+		},
+		"text": {
 			"type": "string"
 		},
 		"textAlign": {
 			"type": "string"
+		},
+		"textColor": {
+			"type": "string"
 		}
 	},
-	"textdomain": "sixa",
-	"editorScript": "file:./build/index.js",
-	"editorStyle": "file:./build/index.css"
+	"textdomain": "sixa-block-add-to-cart",
+	"editorScript": "file:./build/index.js"
 }
