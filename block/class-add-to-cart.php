@@ -259,8 +259,9 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 			return apply_filters(
 				'sixa_add_to_cart_block_html_nodes',
 				array(
-					__CLASS__ . '::get_stock_html' => __( 'Stock status', 'sixa-block-add-to-cart' ),
-					__CLASS__ . '::get_price_html' => __( 'Price', 'sixa-block-add-to-cart' ),
+					__CLASS__ . '::get_stock_html'         => __( 'Stock status', 'sixa-block-add-to-cart' ),
+					__CLASS__ . '::get_price_html'         => __( 'Price', 'sixa-block-add-to-cart' ),
+					__CLASS__ . '::get_sale_discount_html' => __( 'Sale discount', 'sixa-block-add-to-cart' ),
 				)
 			);
 		}
@@ -281,6 +282,29 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 				$return  = sprintf( '<div class="%s__stock">', sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) ) );
 				$return .= wc_get_stock_html( $product );
 				$return .= '</div>';
+			}
+
+			if ( $echo ) {
+				echo $return; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+
+			return $return;
+		}
+
+		/**
+		 * Returns calculated sale amount % based on the regular and on-sale prices.
+		 *
+		 * @since     1.0.0
+		 * @param     object $product    The product object.
+		 * @param     bool   $echo       Optional. Echo the string or return it.
+		 * @return    string
+		 */
+		public static function get_sale_discount_html( object $product, bool $echo = true ): ?string {
+			$return   = '';
+			$discount = self::calculate_sale_discount( $product );
+
+			if ( ! is_null( $discount ) ) {
+				$return = sprintf( '<div class="%s__discount">%s</div>', sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) ), $discount );
 			}
 
 			if ( $echo ) {
@@ -346,6 +370,43 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 			}
 
 			return $attributes;
+		}
+
+		/**
+		 * Calculate sale amount % based on submitted product regular and on-sale price.
+		 *
+		 * @since     1.0.0
+		 * @param     object $product    Product object.
+		 * @return    null|string
+		 */
+		public static function calculate_sale_discount( object $product ): ?string {
+			$discount = null;
+
+			if ( $product->has_child() ) {
+				$discounts = array();
+
+				foreach ( $product->get_children() as $child ) {
+					$child_product = wc_get_product( $child );
+					if ( ! $child_product || ! $child_product->get_sale_price() ) {
+						continue;
+					}
+
+					$discount    = round( ( ( $child_product->get_regular_price() - $child_product->get_sale_price() ) * 100 ) / $child_product->get_regular_price() );
+					$discounts[] = $discount;
+				}
+
+				// Get maximum discount amount.
+				$discount = max( $discounts );
+			} elseif ( $product->get_regular_price() && $product->get_sale_price() ) {
+				$discount = round( ( ( $product->get_regular_price() - $product->get_sale_price() ) * 100 ) / $product->get_regular_price() );
+			}
+
+			if ( ! is_null( $discount ) && ! empty( $discount ) ) {
+				/* translators: %d: Discount percentage. */
+				$discount = sprintf( esc_html__( 'You save %d%%', 'sixa-block-add-to-cart' ), floatval( $discount ) );
+			}
+
+			return $discount;
 		}
 
 		/**
