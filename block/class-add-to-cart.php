@@ -233,7 +233,7 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 				$return .= '</div>';
 			}
 
-			return $return;
+			return Utils::normalize_character_entities( $return );
 		}
 
 		/**
