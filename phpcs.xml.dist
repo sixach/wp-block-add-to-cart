@@ -38,7 +38,9 @@
     -->
     <!-- Include the WordPress ruleset, with select exclusions. -->
     <rule ref="WordPress" />
-    <rule ref="WooCommerce-Core" />
+     <rule ref="WooCommerce-Core">
+        <exclude name="WooCommerce.Commenting.CommentTags.AuthorTag" />
+    </rule>
     <!-- Let's also check that everything is properly documented. -->
     <rule ref="WordPress-Docs" />
     <!--
