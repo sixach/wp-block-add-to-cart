@@ -80,7 +80,9 @@ If you need professional support for this or any other WordPress project, please
 
 == Screenshots ==
 
-1. Add "Add to Cart" block
+1. Select a product from the dropdown menu
+2. Add a text to your button
+3. Remove the stock status and price
 
 == Changelog ==
 = 1.0.0 =
