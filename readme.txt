@@ -50,9 +50,10 @@ Automatic updates should work smoothly, but we still recommend you back up your 
 5. You may search for a product by its name in the dropdown.
 6. Select the product from the dropdown and click *Select*.
 7. Configure the quantity that should be added to the cart in the Inspector controls under *Button settings*
-8. You may automatically hide the button if the product becomes out of stock by enabling *Hide if out of stock?*.
-9. You may toggle the stock status and price by toggling *Stock status* and *Price* in the *Display Settings* in the Inspector controls.
-10. Publish the page.
+8. Add a text to your Add to Cart button by clicking on the button.
+9. You may automatically hide the button if the product becomes out of stock by enabling *Hide if out of stock?*.
+10. You may toggle the stock status and price by toggling *Stock status* and *Price* in the *Display Settings* in the Inspector controls.
+11. Publish the page.
 
 = How do I get help with the plugin? =
 The easiest way to receive support is to “Create a new topic” by visiting the [Community Forums page](https://wordpress.org/support/plugin/sixa-add-to-cart-block "Sixa Add to Cart Block Support Forum").
