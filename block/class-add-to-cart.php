@@ -100,6 +100,11 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 				if ( is_object( $button ) ) {
 					$product_id      = $attributes['postId'] ?? '';
 					$product         = wc_get_product( $product_id );
+
+					if ( ! $product ) {
+						return apply_filters( 'sixa_add_to_cart_block_content', self::get_not_found_html(), $attributes );
+					}
+
 					$custom_classes  = array( 'class' => $button->getAttribute( 'class' ) );
 					$html_attributes = self::get_html_attributes( $product, $custom_classes );
 					$after_content   = apply_filters( 'sixa_add_to_cart_block_after_content', __return_empty_string(), $product, $attributes );
@@ -308,6 +313,22 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 			}
 
 			return $return;
+		}
+
+		/**
+		 * Returns the not found message.
+		 *
+		 * @since     1.0.0
+		 * @return    string
+		 */
+		public static function get_not_found_html(): string {
+			$classname = sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) );
+			return sprintf(
+				'<div class="%s"><p class="%s__not-found">%s</p></div>',
+				$classname,
+				$classname,
+				esc_html__( 'The selected product could not be found', 'sixa-block-add-to-cart' )
+			);
 		}
 
 		/**
