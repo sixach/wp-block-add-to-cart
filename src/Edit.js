@@ -41,7 +41,7 @@ import { Notice } from '@wordpress/components';
  *
  * @see    https://developer.wordpress.org/block-editor/reference-guides/packages/packages-element/
  */
-import {useEffect, useMemo} from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 
 /**
  * EventManager for JavaScript.
