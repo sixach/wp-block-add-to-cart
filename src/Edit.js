@@ -41,7 +41,7 @@ import { Notice } from '@wordpress/components';
  *
  * @see    https://developer.wordpress.org/block-editor/reference-guides/packages/packages-element/
  */
-import { useMemo } from '@wordpress/element';
+import {useEffect, useMemo} from '@wordpress/element';
 
 /**
  * EventManager for JavaScript.
@@ -101,17 +101,18 @@ import Constants from './constants';
 function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgroundColor, setTextColor, textColor } ) {
 	const styles = {};
 	const { postId, text, textAlign } = attributes;
-	const [ isEditing, toggleIsEditing ] = useToggle( ! Boolean( postId ) );
 	const { isLoading, productsOptions, productsQuery } = useGetProducts( {}, clientId );
 	const { havePosts } = usePreparePosts( [], 1, productsQuery );
 	const nodeList = useGetNodeList( 'sixa-add-to-cart-block/v1/nodes' );
 	const product = useFindPostById( postId, productsQuery );
+	const [ isEditing, toggleIsEditing ] = useToggle( ! Boolean( postId ) || ! Boolean( product ) );
 	const blockProps = useBlockProps( { className: classnames( { [ `has-text-align-${ textAlign }` ]: ! isEditing && textAlign } ) } );
 	const className = blockClassName( blockProps?.className );
 	const { maxStockQuantity, nodes } = useMemo(
 		() => ( { maxStockQuantity: get( product, 'stock_quantity' ), nodes: get( product, 'sixa_add_to_cart_block.nodes' ) } ),
 		[ product ]
 	);
+
 	const { gradientClass: backgroundGradientClass, gradientValue: backgroundGradientValue, setGradient: setBackgroundGradient } = __experimentalUseGradient();
 	const { backgroundColorClass, backgroundColorValue, textColorClass, textColorValue } = useMemo(
 		() => ( {
