@@ -98,8 +98,8 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 
 				// Check if the button node exists.
 				if ( is_object( $button ) ) {
-					$product_id      = $attributes['postId'] ?? '';
-					$product         = wc_get_product( $product_id );
+					$product_id = $attributes['postId'] ?? '';
+					$product    = wc_get_product( $product_id );
 
 					if ( ! $product ) {
 						return apply_filters( 'sixa_add_to_cart_block_content', self::get_not_found_html(), $attributes );
