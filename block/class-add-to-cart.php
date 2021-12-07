@@ -102,28 +102,28 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 					$product    = wc_get_product( $product_id );
 
 					if ( ! $product ) {
-						return apply_filters( 'sixa_add_to_cart_block_content', self::get_not_found_html(), $attributes );
-					}
+						$content = self::get_not_found_html();
+					} else {
+						$custom_classes  = array( 'class' => $button->getAttribute( 'class' ) );
+						$html_attributes = self::get_html_attributes( $product, $custom_classes );
+						$after_content   = apply_filters( 'sixa_add_to_cart_block_after_content', __return_empty_string(), $product, $attributes );
 
-					$custom_classes  = array( 'class' => $button->getAttribute( 'class' ) );
-					$html_attributes = self::get_html_attributes( $product, $custom_classes );
-					$after_content   = apply_filters( 'sixa_add_to_cart_block_after_content', __return_empty_string(), $product, $attributes );
-
-					if ( ! empty( $after_content ) ) {
-						$after_content_fragment = $dom->createDocumentFragment();
-						$after_content_fragment->appendXML( $after_content );
-						$button->parentNode->insertBefore( $after_content_fragment ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					}
-
-					if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
-						foreach ( $html_attributes as $key => $value ) {
-							$button->setAttribute( $key, $value );
+						if ( ! empty( $after_content ) ) {
+							$after_content_fragment = $dom->createDocumentFragment();
+							$after_content_fragment->appendXML( $after_content );
+							$button->parentNode->insertBefore( $after_content_fragment ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 						}
+
+						if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
+							foreach ( $html_attributes as $key => $value ) {
+								$button->setAttribute( $key, $value );
+							}
+						}
+
+						libxml_clear_errors();
+						$content = $dom->saveHTML();
 					}
 				}
-
-				libxml_clear_errors();
-				$content = $dom->saveHTML();
 			}
 
 			return apply_filters( 'sixa_add_to_cart_block_content', $content, $attributes );
@@ -322,13 +322,9 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 		 * @return    string
 		 */
 		public static function get_not_found_html(): string {
-			$classname = sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) );
-			return sprintf(
-				'<div class="%s"><p class="%s__not-found">%s</p></div>',
-				$classname,
-				$classname,
-				esc_html__( 'The selected product could not be found', 'sixa-block-add-to-cart' )
-			);
+			/* translators: 1: Open div and paragraph tags, 2: Close div and paragraph tags. */
+			$return = sprintf( esc_html__( '%1$sThe selected product could not be found.%2$s', 'sixa-block-add-to-cart' ), sprintf( '<div class="%1$s"><p class="%1$s__not-found">', sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) ) ), '</p></div>' );
+			return $return;
 		}
 
 		/**

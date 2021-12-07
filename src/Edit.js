@@ -112,16 +112,6 @@ function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgr
 		() => ( { maxStockQuantity: get( product, 'stock_quantity' ), nodes: get( product, 'sixa_add_to_cart_block.nodes' ) } ),
 		[ product ]
 	);
-
-	useEffect( () => {
-		if ( ! product && ! isEditing ) {
-			toggleIsEditing();
-			if ( Boolean( postId ) ) {
-				setAttributes({ postId: undefined });
-			}
-		}
-	}, [ product ] );
-
 	const { gradientClass: backgroundGradientClass, gradientValue: backgroundGradientValue, setGradient: setBackgroundGradient } = __experimentalUseGradient();
 	const { backgroundColorClass, backgroundColorValue, textColorClass, textColorValue } = useMemo(
 		() => ( {
@@ -152,6 +142,15 @@ function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgr
 	if ( ! textColorClass ) {
 		set( styles, 'color', textColorValue );
 	}
+
+	useEffect( () => {
+		if ( ! product && ! isEditing ) {
+			toggleIsEditing();
+			if ( Boolean( postId ) ) {
+				setAttributes( { postId: undefined } );
+			}
+		}
+	}, [ product ] );
 
 	return (
 		<div { ...blockProps }>
