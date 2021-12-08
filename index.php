@@ -14,7 +14,7 @@
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             sixa-block-add-to-cart
  * WC requires at least:    4.5
- * WC tested up to:         5.7
+ * WC tested up to:         5.9
  *
  * @package                 Sixa_Blocks
  */

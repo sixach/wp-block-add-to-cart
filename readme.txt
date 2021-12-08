@@ -23,8 +23,8 @@ and automatically hide the button if the product is out of stock.
 = Minimum Requirements =
 
 * PHP version 7.3 or greater.
-* WordPress version 5.6 or greater.
-* WooCommerce version 3.8 or greater.
+* WordPress version 5.7 or greater.
+* WooCommerce version 4.5 or greater.
 
 = Automatic installation =
 
