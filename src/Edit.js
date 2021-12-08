@@ -41,7 +41,7 @@ import { Notice } from '@wordpress/components';
  *
  * @see    https://developer.wordpress.org/block-editor/reference-guides/packages/packages-element/
  */
-import { useMemo } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 
 /**
  * EventManager for JavaScript.
@@ -142,6 +142,15 @@ function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgr
 	if ( ! textColorClass ) {
 		set( styles, 'color', textColorValue );
 	}
+
+	useEffect( () => {
+		if ( ! product && ! isEditing ) {
+			toggleIsEditing();
+			if ( Boolean( postId ) ) {
+				setAttributes( { postId: undefined } );
+			}
+		}
+	}, [ product ] );
 
 	return (
 		<div { ...blockProps }>

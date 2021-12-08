@@ -98,27 +98,32 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 
 				// Check if the button node exists.
 				if ( is_object( $button ) ) {
-					$product_id      = $attributes['postId'] ?? '';
-					$product         = wc_get_product( $product_id );
-					$custom_classes  = array( 'class' => $button->getAttribute( 'class' ) );
-					$html_attributes = self::get_html_attributes( $product, $custom_classes );
-					$after_content   = apply_filters( 'sixa_add_to_cart_block_after_content', __return_empty_string(), $product, $attributes );
+					$product_id = $attributes['postId'] ?? '';
+					$product    = wc_get_product( $product_id );
 
-					if ( ! empty( $after_content ) ) {
-						$after_content_fragment = $dom->createDocumentFragment();
-						$after_content_fragment->appendXML( $after_content );
-						$button->parentNode->insertBefore( $after_content_fragment ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					}
+					if ( ! $product ) {
+						$content = self::get_not_found_html();
+					} else {
+						$custom_classes  = array( 'class' => $button->getAttribute( 'class' ) );
+						$html_attributes = self::get_html_attributes( $product, $custom_classes );
+						$after_content   = apply_filters( 'sixa_add_to_cart_block_after_content', __return_empty_string(), $product, $attributes );
 
-					if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
-						foreach ( $html_attributes as $key => $value ) {
-							$button->setAttribute( $key, $value );
+						if ( ! empty( $after_content ) ) {
+							$after_content_fragment = $dom->createDocumentFragment();
+							$after_content_fragment->appendXML( $after_content );
+							$button->parentNode->insertBefore( $after_content_fragment ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 						}
+
+						if ( is_array( $html_attributes ) && ! empty( $html_attributes ) ) {
+							foreach ( $html_attributes as $key => $value ) {
+								$button->setAttribute( $key, $value );
+							}
+						}
+
+						libxml_clear_errors();
+						$content = $dom->saveHTML();
 					}
 				}
-
-				libxml_clear_errors();
-				$content = $dom->saveHTML();
 			}
 
 			return apply_filters( 'sixa_add_to_cart_block_content', $content, $attributes );
@@ -307,6 +312,18 @@ if ( ! class_exists( Add_To_Cart::class ) ) :
 				echo $return; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
+			return $return;
+		}
+
+		/**
+		 * Returns the not found message.
+		 *
+		 * @since     1.0.0
+		 * @return    string
+		 */
+		public static function get_not_found_html(): string {
+			/* translators: 1: Open div and paragraph tags, 2: Close div and paragraph tags. */
+			$return = sprintf( esc_html__( '%1$sThe selected product could not be found.%2$s', 'sixa-block-add-to-cart' ), sprintf( '<div class="%1$s"><p class="%1$s__not-found">', sanitize_html_class( apply_filters( 'sixa_add_to_cart_block_class_name', self::CLASSNAME ) ) ), '</p></div>' );
 			return $return;
 		}
 
