@@ -4,7 +4,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:             Sixa - Add to Cart Block
- * Description:             Add an add-to-cart button for any WooCommerce product anywhere on your page. Set the quantity, toggle additional information like the stock status and the price, and automatically hide the button if the product is out of stock.
+ * Description:             Add an add-to-cart button for any WooCommerce product anywhere on your page. Set the quantity, toggle additional information like the stock status and the price, and automatically hide the button if the product goes out of stock.
  * Version:                 1.0.0
  * Requires at least:       5.7
  * Requires PHP:            7.3

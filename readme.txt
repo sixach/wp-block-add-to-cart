@@ -11,13 +11,13 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Add an add-to-cart button for any WooCommerce product anywhere on your page.
 Set the quantity, toggle additional information like the stock status and the price,
-and automatically hide the button if the product is out of stock.
+and automatically hide the button if the product goes out of stock.
 
 == Description ==
 
 Add an add-to-cart button for any WooCommerce product anywhere on your page.
 Set the quantity, toggle additional information like the stock status and the price,
-and automatically hide the button if the product is out of stock.
+and automatically hide the button if the product goes out of stock.
 
 == Installation ==
 = Minimum Requirements =
