@@ -1,5 +1,6 @@
 .bundleignore
 .git
+.github
 .DS_Store
 .editorconfig
 .gitattributes
@@ -9,6 +10,8 @@
 .prettierrc.js
 .stylelintignore
 .stylelintrc.js
+.wordpress-org
+babel.config.js
 composer.json
 composer.lock
 docs
@@ -17,5 +20,7 @@ package.json
 package-lock.json
 phpcs.xml.dist
 renovate.json
+README.md
 /src
+svn
 *.zip
