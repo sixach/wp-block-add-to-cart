@@ -10,6 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import Edit from './Edit';
 import save from './save';
+import Icon from './Icon';
 
 /**
  * Block registration API.
@@ -26,6 +27,11 @@ registerBlockType( 'sixa/add-to-cart', {
 	 * @see    ./edit.js
 	 */
 	edit: Edit,
+
+	/**
+	 * @see    ./Icon.js
+	 */
+	icon: Icon,
 
 	/**
 	 * @see    ./save.js
