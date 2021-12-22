@@ -56,7 +56,7 @@
 	},
 	"dependencies": {
 		"@sixa/wp-block-components": "1.14.0",
-		"@sixa/wp-block-utils": "1.0.4",
+		"@sixa/wp-block-utils": "1.1.0",
 		"@sixa/wp-react-hooks": "1.6.3",
 		"@wordpress/block-editor": "8.0.12",
 		"@wordpress/blocks": "11.1.5",
