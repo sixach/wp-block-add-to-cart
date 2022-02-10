@@ -1,11 +1,6 @@
 /* eslint-disable @wordpress/no-unsafe-wp-apis */
 
 /**
- * Runtime type checking for React props and similar objects.
- */
-import PropTypes from 'prop-types';
-
-/**
  * Helper React components specific for Sixa projects.
  */
 import { NodeList } from '@sixa/wp-block-components';
@@ -39,6 +34,11 @@ import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
  * @see    https://github.com/WordPress/gutenberg/blob/trunk/packages/compose/README.md
  */
 import { ifCondition } from '@wordpress/compose';
+
+/**
+ * Runtime type checking for React props and similar objects.
+ */
+import PropTypes from 'prop-types';
 
 /**
  * Inspector Controls appear in the post settings sidebar when a block is being edited.
