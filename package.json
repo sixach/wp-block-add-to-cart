@@ -78,6 +78,6 @@
 		"@sixa/wp-scripts": "1.0.0",
 		"@wordpress/scripts": "19.2.4",
 		"husky": "^7.0.2",
-		"lint-staged": "12.3.3"
+		"lint-staged": "12.3.4"
 	}
 }
