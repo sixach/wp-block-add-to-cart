@@ -3,9 +3,9 @@ Contributors: sixa, mahdiyazdani, gookaani, kuserich
 Donate link: https://sixa.com/
 Tags: add to cart, button, ecommerce, shop, woocommerce, sixa, block, gutenberg,
 Requires at least: 5.7
-Tested up to: 5.8
-Stable tag: 1.0.0
-Requires PHP: 7.3
+Tested up to: 5.9
+Stable tag: 1.0.1
+Requires PHP: 7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,9 @@ If you need professional support for this or any other WordPress project, please
 3. Remove the stock status and price
 
 == Changelog ==
+= 1.0.1 =
+* Compatibility with WordPress 5.9
+
 = 1.0.0 =
 * Initial release
 

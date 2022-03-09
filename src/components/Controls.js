@@ -1,9 +1,4 @@
 /**
- * Runtime type checking for React props and similar objects.
- */
-import PropTypes from 'prop-types';
-
-/**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
  *
@@ -18,6 +13,11 @@ import { BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
  * @see    https://github.com/WordPress/gutenberg/blob/trunk/packages/compose/README.md
  */
 import { ifCondition } from '@wordpress/compose';
+
+/**
+ * Runtime type checking for React props and similar objects.
+ */
+import PropTypes from 'prop-types';
 
 /**
  * The BlockToolbar component is used to render a toolbar that serves as a wrapper for number of options for each block.

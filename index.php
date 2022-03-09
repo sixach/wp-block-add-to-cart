@@ -7,14 +7,14 @@
  * Description:             Add an add-to-cart button for any WooCommerce product anywhere on your page. Set the quantity, toggle additional information like the stock status and the price, and automatically hide the button if the product goes out of stock.
  * Version:                 1.0.0
  * Requires at least:       5.7
- * Requires PHP:            7.3
+ * Requires PHP:            7.4
  * Author:                  sixa AG
  * Author URI:              https://sixa.com
  * License:                 GPL v3 or later
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             sixa-block-add-to-cart
  * WC requires at least:    4.5
- * WC tested up to:         5.9
+ * WC tested up to:         6.2
  *
  * @package                 Sixa_Blocks
  */

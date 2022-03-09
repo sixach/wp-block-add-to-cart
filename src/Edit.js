@@ -145,59 +145,56 @@ function Edit( { attributes, clientId, backgroundColor, setAttributes, setBackgr
 
 	return (
 		<div { ...blockProps }>
-			{
-				/* eslint-disable-next-line no-nested-ternary */
-				Boolean( isLoading ) ? (
-					<Loading />
-				) : havePosts ? (
-					<>
-						<PostSelectForm
-							isEditing={ isEditing }
-							instructions={ __( 'Select a product from the dropdown menu below:', 'sixa-block-add-to-cart' ) }
-							label={ __( 'Product', 'sixa-block-add-to-cart' ) }
-							onCancel={ toggleIsEditing }
-							onChange={ ( value ) => setAttributes( { postId: value } ) }
-							options={ productsOptions }
-							shouldRender
-							value={ postId }
-						/>
-						{ applyFilters(
-							'sixa.addToCartComponent',
-							<EditableText
-								className={ classNames }
-								isSave={ false }
-								onChange={ ( value ) => setAttributes( { text: value } ) }
-								placeholder={ __( 'Add to cart…', 'sixa-block-add-to-cart' ) }
-								shouldRender={ ! isEditing }
-								tagName="div"
-								value={ text }
-								style={ styles }
-							/>,
-							className,
-							classNames,
-							styles,
-							attributes,
-							setAttributes
-						) }
-						<Nodes attributes={ attributes } className={ `${ className }__meta` } nodes={ nodes } shouldRender={ ! isEditing } />
-						<Controls attributes={ attributes } setAttributes={ setAttributes } shouldRender={ ! isEditing } />
-						<Inspector
-							attributes={ attributes }
-							backgroundColor={ { backgroundColorValue, setBackgroundColor } }
-							backgroundGradient={ { backgroundGradientValue, setBackgroundGradient } }
-							maxStockQuantity={ maxStockQuantity }
-							nodeList={ nodeList }
-							setAttributes={ setAttributes }
+			{ Boolean( isLoading ) ? (
+				<Loading />
+			) : havePosts ? (
+				<>
+					<PostSelectForm
+						isEditing={ isEditing }
+						instructions={ __( 'Select a product from the dropdown menu below:', 'sixa-block-add-to-cart' ) }
+						label={ __( 'Product', 'sixa-block-add-to-cart' ) }
+						onCancel={ toggleIsEditing }
+						onChange={ ( value ) => setAttributes( { postId: value } ) }
+						options={ productsOptions }
+						shouldRender
+						value={ postId }
+					/>
+					{ applyFilters(
+						'sixa.addToCartComponent',
+						<EditableText
+							className={ classNames }
+							isSave={ false }
+							onChange={ ( value ) => setAttributes( { text: value } ) }
+							placeholder={ __( 'Add to cart…', 'sixa-block-add-to-cart' ) }
 							shouldRender={ ! isEditing }
-							textColor={ { textColorValue, setTextColor } }
-						/>
-					</>
-				) : (
-					<Notice css={ { margin: 0 } } isDismissible={ false } status="warning">
-						{ __( 'No products found to display.', 'sixa-block-add-to-cart' ) }
-					</Notice>
-				)
-			}
+							tagName="div"
+							value={ text }
+							style={ styles }
+						/>,
+						className,
+						classNames,
+						styles,
+						attributes,
+						setAttributes
+					) }
+					<Nodes attributes={ attributes } className={ `${ className }__meta` } nodes={ nodes } shouldRender={ ! isEditing } />
+					<Controls attributes={ attributes } setAttributes={ setAttributes } shouldRender={ ! isEditing } />
+					<Inspector
+						attributes={ attributes }
+						backgroundColor={ { backgroundColorValue, setBackgroundColor } }
+						backgroundGradient={ { backgroundGradientValue, setBackgroundGradient } }
+						maxStockQuantity={ maxStockQuantity }
+						nodeList={ nodeList }
+						setAttributes={ setAttributes }
+						shouldRender={ ! isEditing }
+						textColor={ { textColorValue, setTextColor } }
+					/>
+				</>
+			) : (
+				<Notice css={ { margin: 0 } } isDismissible={ false } status="warning">
+					{ __( 'No products found to display.', 'sixa-block-add-to-cart' ) }
+				</Notice>
+			) }
 		</div>
 	);
 }

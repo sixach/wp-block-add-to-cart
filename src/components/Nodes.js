@@ -4,11 +4,6 @@
 import { map, omit } from 'lodash';
 
 /**
- * Runtime type checking for React props and similar objects.
- */
-import PropTypes from 'prop-types';
-
-/**
  * The compose package is a collection of handy Hooks and Higher Order Components (HOCs).
  * The compose function is an alias to `flowRight` from Lodash.
  *
@@ -30,6 +25,11 @@ import { applyFilters } from '@wordpress/hooks';
  * @see    https://www.npmjs.com/package/html-react-parser
  */
 import parse from 'html-react-parser';
+
+/**
+ * Runtime type checking for React props and similar objects.
+ */
+import PropTypes from 'prop-types';
 
 /**
  * The nodes template component.

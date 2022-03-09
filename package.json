@@ -1,6 +1,6 @@
 {
 	"name": "@sixach/wp-block-add-to-cart",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": true,
 	"description": "Display an add-to-cart button for a given product.",
 	"keywords": [
@@ -76,8 +76,9 @@
 		"@emotion/babel-preset-css-prop": "11.2.0",
 		"@emotion/react": "11.8.1",
 		"@sixa/wp-scripts": "1.0.0",
-		"@wordpress/scripts": "19.2.4",
-		"husky": "^7.0.2",
-		"lint-staged": "12.3.5"
+		"@wordpress/scripts": "22.0.0",
+		"husky": "7.0.4",
+		"lint-staged": "12.3.5",
+		"prettier": "npm:wp-prettier@2.2.1-beta-1"
 	}
 }
