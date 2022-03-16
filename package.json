@@ -74,7 +74,7 @@
 	"devDependencies": {
 		"@emotion/babel-plugin-jsx-pragmatic": "0.1.5",
 		"@emotion/babel-preset-css-prop": "11.2.0",
-		"@emotion/react": "11.8.1",
+		"@emotion/react": "11.8.2",
 		"@sixa/wp-scripts": "1.0.0",
 		"@wordpress/scripts": "22.0.0",
 		"husky": "7.0.4",
