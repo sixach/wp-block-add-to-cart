@@ -78,7 +78,7 @@
 		"@sixa/wp-scripts": "1.0.0",
 		"@wordpress/scripts": "22.2.1",
 		"husky": "7.0.4",
-		"lint-staged": "12.3.5",
+		"lint-staged": "12.3.7",
 		"prettier": "npm:wp-prettier@2.2.1-beta-1"
 	}
 }
