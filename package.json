@@ -67,7 +67,7 @@
 		"@wordpress/i18n": "4.4.1",
 		"@wordpress/url": "3.5.1",
 		"classnames": "2.3.1",
-		"html-react-parser": "1.4.8",
+		"html-react-parser": "1.4.9",
 		"lodash": "4.17.21",
 		"prop-types": "15.8.1"
 	},
