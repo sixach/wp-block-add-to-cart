@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-25T09:15:04+00:00\n"
+"POT-Creation-Date: 2022-03-25T09:17:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: sixa-block-add-to-cart\n"
@@ -31,21 +31,15 @@ msgid "https://sixa.com"
 msgstr ""
 
 #: block/class-add-to-cart.php:267
-#: svn/tags/1.0.0/block/class-add-to-cart.php:267
-#: svn/trunk/block/class-add-to-cart.php:267
 msgid "Stock status"
 msgstr ""
 
 #: block/class-add-to-cart.php:268
-#: svn/tags/1.0.0/block/class-add-to-cart.php:268
-#: svn/trunk/block/class-add-to-cart.php:268
 msgid "Price"
 msgstr ""
 
 #. translators: 1: Open div and paragraph tags, 2: Close div and paragraph tags.
 #: block/class-add-to-cart.php:326
-#: svn/tags/1.0.0/block/class-add-to-cart.php:326
-#: svn/trunk/block/class-add-to-cart.php:326
 msgid "%1$sThe selected product could not be found.%2$s"
 msgstr ""
 
@@ -98,50 +92,36 @@ msgid "No products found to display."
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block title"
 msgid "Add to Cart"
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block description"
 msgid "Display an add-to-cart button for a given product."
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block keyword"
 msgid "sixa"
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block keyword"
 msgid "button"
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block keyword"
 msgid "add-to-cart"
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block keyword"
 msgid "woocommerce"
 msgstr ""
 
 #: block.json
-#: svn/tags/1.0.0/block.json
-#: svn/trunk/block.json
 msgctxt "block keyword"
 msgid "ecommerce"
 msgstr ""
