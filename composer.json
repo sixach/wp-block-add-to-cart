@@ -43,7 +43,7 @@
 		"lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 7.4-",
 		"lint:wpcbf": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 7.4-",
 		"lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor --exclude node_modules .",
-		"make-pot": "wp i18n make-pot . languages/sixa-block-add-to-cart.pot --exclude=build"
+		"make-pot": "wp i18n make-pot . languages/sixa-block-add-to-cart.pot --exclude=build,svn"
 	},
 	"autoload": {
 		"classmap": [ "block" ]

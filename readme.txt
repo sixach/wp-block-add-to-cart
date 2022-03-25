@@ -64,7 +64,7 @@ Make sure to check the “Notify me of follow-up replies via email” checkbox t
 = Can I help translating this plugin into a new language? =
 The plugin is fully translation-ready and localized using the GNU framework. Translators are welcome to contribute to the plugin.
 
-Here’s the the [WordPress translation website &#8594;](https://translate.wordpress.org/projects/wp-plugins/sixa-add-to-cart-block "WordPress translation website")
+Here’s the [WordPress translation website &#8594;](https://translate.wordpress.org/projects/wp-plugins/sixa-add-to-cart-block "WordPress translation website")
 
 = How do I contribute to this plugin? =
 We welcome contributions of any form and you can help reporting, testing, and detailing bugs.
